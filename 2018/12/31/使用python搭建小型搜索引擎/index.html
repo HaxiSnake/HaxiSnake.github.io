@@ -21,7 +21,7 @@
 <meta property="og:description" content="一、目标为准备信息检索课程的期末大作业，因此我使用python搭建了一个小型的搜索引擎，其功能是检索大工新闻网的新闻。 二、原理和工具简介2.1 原理该搜索引擎的原理是采用scrapy对大工新闻网进行爬虫，提取出文字新闻，并将新闻内容存入数据库A，再利用Django框架搭建一个搜索服务器，在服务器上部署Haystack+Whoosh搜索引擎，使用jieba分词工具来进行中文分词和停用词过滤。通过搜">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://haxisnake.github.io/2018/12/31/使用python搭建小型搜索引擎/query.jpg">
-<meta property="og:updated_time" content="2018-12-31T16:57:52.698Z">
+<meta property="og:updated_time" content="2018-12-31T17:07:17.806Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用python搭建小型搜索引擎">
 <meta name="twitter:description" content="一、目标为准备信息检索课程的期末大作业，因此我使用python搭建了一个小型的搜索引擎，其功能是检索大工新闻网的新闻。 二、原理和工具简介2.1 原理该搜索引擎的原理是采用scrapy对大工新闻网进行爬虫，提取出文字新闻，并将新闻内容存入数据库A，再利用Django框架搭建一个搜索服务器，在服务器上部署Haystack+Whoosh搜索引擎，使用jieba分词工具来进行中文分词和停用词过滤。通过搜">
@@ -334,25 +334,7 @@ class ChineseTokenizer(Tokenizer):
 &lt;/form&gt;
 </code></pre><p>首页如下图所示：<br><img src="/2018/12/31/使用python搭建小型搜索引擎/query.jpg" title="image"></p>
 <p>查询结果页html关键代码：</p>
-<pre><code>{% load highlight %}
-&lt;h3&gt;搜索&amp;nbsp;&lt;b&gt;{{query}}&lt;/b&gt;&amp;nbsp;结果如下：&lt;/h3&gt;
-&lt;ul&gt;
-{%for item in page%}
-        <li>{{item.object.title|safe}}</li>
-        <p>{% highlight item.object.content with query %}</p>
-        <a href="{{item.object.arturl}}">{{item.object.arturl}}</a>
-    {%empty%}
-        <li>啥也没找到</li>
-    {%endfor%}
-&lt;/ul&gt;
-&lt;hr&gt;
-{%for pindex in page.paginator.page_range%}
-        {%if pindex == page.number%}
-            {{pindex}}&nbsp;&nbsp;
-        {%else%}
-            <a href="?q={{query}}&amp;page={{pindex}}">{{pindex}}</a>&nbsp;&nbsp;
-        {%endif%}
-    {%endfor%}
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;% load highlight %&#125;</span><br><span class="line">&lt;h3&gt;搜索&amp;nbsp;&lt;b&gt;&#123;&#123;query&#125;&#125;&lt;/b&gt;&amp;nbsp;结果如下：&lt;/h3&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">&#123;%for item in page%&#125;</span><br><span class="line">    &lt;li&gt;&#123;&#123;item.object.title|safe&#125;&#125;&lt;/li&gt;</span><br><span class="line">    &lt;p&gt;&#123;% highlight item.object.content with query %&#125;&lt;/p&gt;</span><br><span class="line">    &lt;a href=&quot;&#123;&#123;item.object.arturl&#125;&#125;&quot;&gt;&#123;&#123;item.object.arturl&#125;&#125;&lt;/a&gt;</span><br><span class="line">&#123;%empty%&#125;</span><br><span class="line">    &lt;li&gt;啥也没找到&lt;/li&gt;</span><br><span class="line">&#123;%endfor%&#125;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;hr&gt;</span><br><span class="line">&#123;%for pindex in page.paginator.page_range%&#125;</span><br><span class="line">    &#123;%if pindex == page.number%&#125;</span><br><span class="line">        &#123;&#123;pindex&#125;&#125;&amp;nbsp;&amp;nbsp;</span><br><span class="line">    &#123;%else%&#125;</span><br><span class="line">        &lt;a href=&quot;?q=&#123;&#123;query&#125;&#125;&amp;amp;page=&#123;&#123;pindex&#125;&#125;&quot;&gt;&#123;&#123;pindex&#125;&#125;&lt;/a&gt;&amp;nbsp;&amp;nbsp;</span><br><span class="line">    &#123;%endif%&#125;</span><br><span class="line">&#123;%endfor%&#125;</span><br></pre></td></tr></table></figure>
 </code></pre><p>其中使用</p>
 <pre><code>{% load highlight %}
 &lt;p&gt;{% highlight item.object.content with query %}&lt;/p&gt;
@@ -365,7 +347,7 @@ class ChineseTokenizer(Tokenizer):
 
 
 
-    <a data-url="https://haxisnake.github.io/2018/12/31/使用python搭建小型搜索引擎/" data-id="cjqckiueu0007rsoijtc3i4s9" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://haxisnake.github.io/2018/12/31/使用python搭建小型搜索引擎/" data-id="cjqcku7sf0001e8oix7uplmf3" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
