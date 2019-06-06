@@ -10,7 +10,7 @@
     
     
     
-    <title>tags: Scrapy | 奇点的猪</title>
+    <title>化学品预测毒理学平台后台搭建笔记 | 奇点的猪</title>
     <link href=”https://haxisnake.github.io“ rel=”prefetch” />
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -178,19 +178,36 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 gal-right" id="mainstay">
-                    <article class="article well article-body" id="article-tag">
+                    
+<article class="article well article-body" id="article">
     <div class="breadcrumb">
         <i class="fa fa-home"></i>
         <a href="https://haxisnake.github.io">奇点的猪</a>
         >
-        <span>标签</span>
+        <span>化学品预测毒理学平台后台搭建笔记</span>
     </div>
     <!-- 大型设备详细文章 -->
     <div class="hidden-xs">
         <div class="title-article">
             <h1>
-                <a href="/tags/Scrapy/index.html">Scrapy</a>
+                <a href="/2019/06/06/化学品预测毒理学平台后台搭建笔记/">化学品预测毒理学平台后台搭建笔记</a>
             </h1>
+        </div>
+        <div class="tag-article">
+            
+            <span class="label label-gal">
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/环境搭建/">环境搭建</a>, 
+                
+                <a href="/tags/Django/">Django</a>
+                
+            </span>
+            
+            <span class="label label-gal">
+                <i class="fa fa-calendar"></i> 2019-06-06
+            </span>
+            
         </div>
     </div>
     <!-- 小型设备详细文章 -->
@@ -198,21 +215,152 @@
         <center>
             <div class="title-article">
                 <h4>
-                    <a href="/tags/Scrapy/index.html">Scrapy</a>
+                    <a href="/2019/06/06/化学品预测毒理学平台后台搭建笔记/">化学品预测毒理学平台后台搭建笔记</a>
                 </h4>
             </div>
+            <p>
+                <i class="fa fa-calendar"></i> 2019-06-06
+            </p>
+            <p>
+                
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/环境搭建/">环境搭建</a>, 
+                
+                <a href="/tags/Django/">Django</a>
+                
+                
+                
+            </p>
         </center>
     </div>
-    <div class="content-article" style="margin-top: 30px;">
-        <div class="alert alert-info" style="font-size: 14px; line-height: 2; font-weight: bold;">
-            
-            <a href="/2018/12/31/使用python搭建小型搜索引擎/">使用python搭建小型搜索引擎</a>
-            <br>
-            
-            
-        </div>
+    <div class="content-article">
+        <h1 id="2019-06-06"><a href="#2019-06-06" class="headerlink" title="2019-06-06"></a>2019-06-06</h1><h2 id="解决了problem-060501"><a href="#解决了problem-060501" class="headerlink" title="解决了problem_060501"></a>解决了<a href="#problem_060501_solved">problem_060501</a></h2><h2 id="找到后台数据库管理界面（新发现）"><a href="#找到后台数据库管理界面（新发现）" class="headerlink" title="找到后台数据库管理界面（新发现）"></a>找到后台数据库管理界面（新发现）</h2><p>IP:port/admin</p>
+<h2 id="problem-060601-unsolved"><a href="#problem-060601-unsolved" class="headerlink" title="problem_060601_unsolved"></a>problem_060601_unsolved</h2><p>描述：</p>
+<p>用户无法注册登录的问题</p>
+<p>出错日志：</p>
+<pre><code>Exception Type:    SMTPAuthenticationError
+Exception Value:    (535, &apos;Error: authentication failed&apos;)
+</code></pre><p>原因分析：</p>
+<p>邮件服务没有通过认证，无法正常激活。</p>
+<h2 id="problem-060602-unsolved"><a href="#problem-060602-unsolved" class="headerlink" title="problem_060602_unsolved"></a>problem_060602_unsolved</h2><p>描述：</p>
+<p>openbabel问题不支持png图片生成</p>
+<p>出错日志：</p>
+<pre><code>[2019-06-06 00:10:20,183: ERROR/Worker-15] failed to submit task to prediction model
+Traceback (most recent call last):
+File &quot;/home/jiangdong/workspace/CTWS/ChemToolsWebService/chemistry/tasks.py&quot;, line 101, in calculateTask
+    generate_mol_image(task)
+File &quot;/home/jiangdong/workspace/CTWS/ChemToolsWebService/chemistry/util.py&quot;, line 107, in generate_mol_image
+    mol.draw(show=False, filename=ppath)
+File &quot;/usr/lib/python2.7/dist-packages/pybel.py&quot;, line 502, in draw
+    raise ImportError(errormessage)
+ImportError: PNG output format not found. You should compile Open Babel with PNG support. See installation instructions for more information.
+</code></pre><h2 id="problem-060603-unsolved"><a href="#problem-060603-unsolved" class="headerlink" title="problem_060603_unsolved"></a>problem_060603_unsolved</h2><p>问题描述：</p>
+<pre><code>UnboundLocalError: local variable &apos;suite&apos; referenced before assignment(未解决)
+</code></pre><p>出错日志：</p>
+<pre><code>[2019-06-06 00:10:20,199: ERROR/MainProcess] Task chemistry.tasks.calculateTask[4898a17f-30b6-4ef7-a3f4-054b12dd719a] raised unexpected: UnboundLocalError(&quot;local variable &apos;suite&apos; referenced before assignment&quot;,)
+Traceback (most recent call last):
+File &quot;/home/jiangdong/.local/lib/python2.7/site-packages/celery/app/trace.py&quot;, line 240, in trace_task
+    R = retval = fun(*args, **kwargs)
+File &quot;/home/jiangdong/.local/lib/python2.7/site-packages/celery/app/trace.py&quot;, line 437, in __protected_call__
+    return self.run(*args, **kwargs)
+File &quot;/home/jiangdong/workspace/CTWS/ChemToolsWebService/chemistry/tasks.py&quot;, line 138, in calculateTask
+    suite.status_id = StatusCategory.objects.get(category=STATUS_FAILED)
+UnboundLocalError: local variable &apos;suite&apos; referenced before assignment
+</code></pre><h1 id="2019-06-05"><a href="#2019-06-05" class="headerlink" title="2019-06-05"></a>2019-06-05</h1><h2 id="problem-060501-solved"><a href="#problem-060501-solved" class="headerlink" title="problem_060501_solved"></a>problem_060501_solved</h2><p>django报错提示：</p>
+<pre><code>OperationalError: (1054, &quot;Unknown column &apos;local_search_id&apos; in &apos;field list&apos;&quot;)
+</code></pre><p>出错日志：</p>
+<pre><code>[2019-06-05 21:38:21,513: ERROR/Worker-15] failed to generate suite_task:1a8292d1-5820-4f01-8743-e131f889ecbd Traceback (most recent call last): File &quot;/home/jiangdong/workspace/CTWS/ChemToolsWebService/chemistry/util.py&quot;, line 451, in generate_calculate_task handle_smile_task(smile, model, sid, local_search_id) File &quot;/home/jiangdong/workspace/CTWS/ChemToolsWebService/chemistry/util.py&quot;, line 352, in handle_smile_task save_record(fpath, model, sid, ORIGIN_SMILE, smile, local_search_id) File &quot;/home/jiangdong/workspace/CTWS/ChemToolsWebService/chemistry/util.py&quot;, line 261, in save_record processed_f.save()
+</code></pre><p>原因分析：</p>
+<p>发现任务提交出错发生在chemistry/util.py的save_record函数中</p>
+<p>底层错误为：</p>
+<pre><code>OperationalError: (1054, &quot;Unknown column &apos;local_search_id&apos; in &apos;field list&apos;&quot;)
+</code></pre><p>目前怀疑为数据库中缺少对应的项，正在根据代码核实涉及哪部分的数据库。</p>
+<p>解决方法(2019-06-06更新)</p>
+<p>进入数据库，运行</p>
+<pre><code>alter table chemistry_processedfile add column local_search_id INT(11) NULL;
+</code></pre><p>(2019-06-06更新结束)</p>
+<h1 id="2019-06-03"><a href="#2019-06-03" class="headerlink" title="2019-06-03"></a>2019-06-03</h1><p>画图框架需要手动刷新显示，故在html的渲染文件中添加一行温馨提示，添加位置在templates/newtask.html中{\% include&amp;nbsp “widgets/chem-draw.html” \%}之后。<br>添加内容为</p>
+<pre><code>&lt;font style=”vertical-align: inherit;”&gt;若显示不正常右键绘图区域重新加载框架&lt;/font&gt;
+</code></pre><h1 id="2019-06-02"><a href="#2019-06-02" class="headerlink" title="2019-06-02"></a>2019-06-02</h1><p>任务列表界面无法访问，发现原因是生成的数据库中的对应表缺少一项，手动在数据库中添加即可。命令如下：</p>
+<pre><code>mysql –uroot –p
+root
+use Chemistry;  
+alter table chemistry_suitetask add column is_hide TINYINT(1) NOT NULL DEFAULT 0;
+alter table chemistry_singletask add column is_hide TINYINT(1) NOT NULL DEFAULT 0;
+</code></pre>
+<h1 id="2019-06-01"><a href="#2019-06-01" class="headerlink" title="2019-06-01"></a>2019-06-01</h1><h2 id="一些新的发现？"><a href="#一些新的发现？" class="headerlink" title="一些新的发现？"></a>一些新的发现？</h2><ul>
+<li>tools目录下的generate_models.py会根据data文件夹下的csv文件生成chemistry/calcore/matrix/下的py文件。</li>
+<li><p>tools目录下的gen_check.py会根据data文件夹下的csv文件生成tools/data/check下的py文件。</p>
+</li>
+<li><p>tools/deploy目录下的import_local.py文件好像是导入啥东西的 没有细究。。。</p>
+</li>
+<li><p>tools/deploy目录下的build_production是用来配置生产环境相关目录的 主要是新建一些相关目录 以及安装对应的依赖包 和初始化数据库。</p>
+</li>
+<li><p>要安装supervisor</p>
+</li>
+</ul>
+<p>sudo pip2 install supervisor</p>
+<ul>
+<li>python manage.py collectstatic</li>
+</ul>
+<h1 id="2019-05-28"><a href="#2019-05-28" class="headerlink" title="2019-05-28"></a>2019-05-28</h1><h2 id="redis安装及配置"><a href="#redis安装及配置" class="headerlink" title="redis安装及配置"></a>redis安装及配置</h2><p><a href="https://www.cnblogs.com/GoQC/p/5764201.html" target="_blank" rel="noopener">redis安装配置</a><br><a href="https://blog.csdn.net/m0_37886429/article/details/82556935" target="_blank" rel="noopener">django redis配置</a></p>
+<p>apt-get install redis-server</p>
+<h1 id="2019-05-18"><a href="#2019-05-18" class="headerlink" title="2019-05-18"></a>2019-05-18</h1><p>使用不同的settings<br>新建settings文件夹，将原先的settings.py配置成base.py,<br>root_dir向上加一层目录<br>copy dev.py至settings文件夹<br>如下形式启动</p>
+<p>python2 manage.py runserver –settings=./settings.settings_dev.py</p>
+<h1 id="2019-05-15"><a href="#2019-05-15" class="headerlink" title="2019-05-15"></a>2019-05-15</h1><h2 id="CPTP平台进展记录"><a href="#CPTP平台进展记录" class="headerlink" title="CPTP平台进展记录"></a>CPTP平台进展记录</h2><img src="/2019/06/06/化学品预测毒理学平台后台搭建笔记/2019-05-15-1.jpg" title="fig1">
+<p>图一</p>
+<img src="/2019/06/06/化学品预测毒理学平台后台搭建笔记/2019-05-15-2.jpg" title="fig1">
+<p>图二</p>
+<h3 id="进展说明"><a href="#进展说明" class="headerlink" title="进展说明"></a>进展说明</h3><p>经过各种依赖库的安装及相关框架的配置，现在已能够在本地访问平台首页，相关测试结果如下：</p>
+<ul>
+<li>首页、平台远景、软件帮助这三个页面的内容目前都是一样的…见图一。</li>
+<li>图二是“预测计算-新建计算”的页面，但目前还不能提交计算原因可能是Dragon的license还没有配置上，等license配置结束应该就可以正常计算</li>
+<li>“预测计算-任务列表”页面访问会出错，估计原因有两种：一是没有预测任务，所以访问出错。二是网站本身链接不存在或者缺少三方包导致访问出错。</li>
+<li>分子绘图界面目前显示有些问题，可能是先关文件在源仓库的缺失导致的，需要进一步分析解决。</li>
+<li>文件上传功能需要后续继续测试。</li>
+</ul>
+<h3 id="接下来的工作"><a href="#接下来的工作" class="headerlink" title="接下来的工作"></a>接下来的工作</h3><ul>
+<li>找一台在机房的节点重新部署平台。</li>
+<li>等待官网发放license，继续测试计算功能。</li>
+<li>阅读相关功能模块源码，找出进展3,4中问题的具体原因。</li>
+<li>根据提供的资料，完善平台的首页，平台远景以及软件帮助的静态界面。</li>
+</ul>
+<h1 id="2019-05-10"><a href="#2019-05-10" class="headerlink" title="2019-05-10"></a>2019-05-10</h1><p>今天的思路是采用虚拟环境virtualenv在16.04上使用python2.7配置环境。</p>
+<ul>
+<li>添加32位库的支持</li>
+</ul>
+<p>改为 sudo apt-get install g++-multilib </p>
+<h1 id="2019-04-23"><a href="#2019-04-23" class="headerlink" title="2019-04-23"></a>2019-04-23</h1><p>下载了bootstrap 目前还不知道有啥用</p>
+<p>安装Django<a href="https://docs.djangoproject.com/zh-hans/2.2/topics/install/#installing-official-release" target="_blank" rel="noopener">官网链接</a></p>
+<p>更改了fail_n*n.png的文件名字，使得仓库能够被完整下载</p>
+<p>更新了requirement文件,解决了python三方包的依赖问题<br><strong>但是没有测试三方包能否在现有代码中运行</strong></p>
+<ul>
+<li><p>错误1</p>
+<ul>
+<li><p>描述：</p>
+<p>  -bash: ./tools/build_env.sh: /bin/bash^M: bad interpreter: No such file or directory</p>
+</li>
+<li>解决办法<br>  <a href="https://www.cnblogs.com/zyb-pp/p/6429448.html" target="_blank" rel="noopener">链接</a></li>
+</ul>
+</li>
+<li><p>错误2</p>
+<ul>
+<li><p>描述：</p>
+<p>  找不到virtualenv: command not found</p>
+</li>
+<li><p>解决方法</p>
+<p>  安装virtualenv<br>  pip3 install –user virtualenv</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>总结：现在这份仓库的代码使用的Django-1.6.3和python2的版本，可以说非常的古老，如果要方便后续开发，最好是能转成Django-2.2和python3.5不过这个工作量很多，因为Django2.x相比1.x版本是全新的一个版本，而且只能支持python3，需要慎重考虑。</p>
+
     </div>
 </article>
+
+
                 </div>
                 <aside class="col-md-4 gal-left" id="sidebar">
     <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
@@ -333,7 +481,7 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2019/02/18/docker无法启动问题调试/">docker无法启动问题调试</a>
+                    <a href="/2019/04/09/OpenPose环境搭建笔记/">OpenPose环境搭建笔记</a>
                 </span>
             </li>
             
@@ -402,17 +550,17 @@
 
                 
                 <li>
-                    <a href="/tags/Scrapy/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                    <a href="/2019/06/06/化学品预测毒理学平台后台搭建笔记/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
                 </li>
                 
                 
                 <li>
-                    <a href="/tags/Scrapy/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
+                    <a href="/2019/06/06/化学品预测毒理学平台后台搭建笔记/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
                 </li>
                 
                 
                 <li>
-                    <a href="/tags/Scrapy/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                    <a href="/2019/06/06/化学品预测毒理学平台后台搭建笔记/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
                 </li>
                 
             </ul>
@@ -420,35 +568,35 @@
                 
                 <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
     
-    <a href="/tags/环境搭建/" style="font-size: 18.753307281717674px;" class="tag-cloud-link">环境搭建</a>
+    <a href="/tags/环境搭建/" style="font-size: 17.27839449881204px;" class="tag-cloud-link">环境搭建</a>
     
-    <a href="/tags/opencv3/" style="font-size: 8.940699007062214px;" class="tag-cloud-link">opencv3</a>
+    <a href="/tags/opencv3/" style="font-size: 16.434589611392806px;" class="tag-cloud-link">opencv3</a>
     
-    <a href="/tags/Python/" style="font-size: 9.419926119336496px;" class="tag-cloud-link">Python</a>
+    <a href="/tags/Python/" style="font-size: 15.012990531402934px;" class="tag-cloud-link">Python</a>
     
-    <a href="/tags/Scrapy/" style="font-size: 11.217940940307829px;" class="tag-cloud-link">Scrapy</a>
+    <a href="/tags/Scrapy/" style="font-size: 12.175949841116854px;" class="tag-cloud-link">Scrapy</a>
     
-    <a href="/tags/Django/" style="font-size: 18.50728093065505px;" class="tag-cloud-link">Django</a>
+    <a href="/tags/Django/" style="font-size: 9.465575386900706px;" class="tag-cloud-link">Django</a>
     
-    <a href="/tags/Haystack/" style="font-size: 10.187292741412449px;" class="tag-cloud-link">Haystack</a>
+    <a href="/tags/Haystack/" style="font-size: 17.182478953706358px;" class="tag-cloud-link">Haystack</a>
     
-    <a href="/tags/Whoosh/" style="font-size: 12.560108759424114px;" class="tag-cloud-link">Whoosh</a>
+    <a href="/tags/Whoosh/" style="font-size: 17.043438023116735px;" class="tag-cloud-link">Whoosh</a>
     
-    <a href="/tags/Jieba/" style="font-size: 16.5018994300326px;" class="tag-cloud-link">Jieba</a>
+    <a href="/tags/Jieba/" style="font-size: 13.846316564146534px;" class="tag-cloud-link">Jieba</a>
     
-    <a href="/tags/bug/" style="font-size: 16.79083870930569px;" class="tag-cloud-link">bug</a>
+    <a href="/tags/bug/" style="font-size: 18.1364811589622px;" class="tag-cloud-link">bug</a>
     
-    <a href="/tags/c/" style="font-size: 8.012597141413679px;" class="tag-cloud-link">c++</a>
+    <a href="/tags/c/" style="font-size: 13.88955181607956px;" class="tag-cloud-link">c++</a>
     
-    <a href="/tags/raspberry3B/" style="font-size: 11.029241111322143px;" class="tag-cloud-link">raspberry3B</a>
+    <a href="/tags/raspberry3B/" style="font-size: 9.702991689982753px;" class="tag-cloud-link">raspberry3B</a>
     
-    <a href="/tags/ROS/" style="font-size: 12.979210425867763px;" class="tag-cloud-link">ROS</a>
+    <a href="/tags/ROS/" style="font-size: 13.448676525597925px;" class="tag-cloud-link">ROS</a>
     
-    <a href="/tags/turtlebot3/" style="font-size: 19.781047802683563px;" class="tag-cloud-link">turtlebot3</a>
+    <a href="/tags/turtlebot3/" style="font-size: 18.85242590032908px;" class="tag-cloud-link">turtlebot3</a>
     
-    <a href="/tags/服务器维护/" style="font-size: 14.736279947083508px;" class="tag-cloud-link">服务器维护</a>
+    <a href="/tags/服务器维护/" style="font-size: 11.245705994233784px;" class="tag-cloud-link">服务器维护</a>
     
-    <a href="/tags/raspberry3B/" style="font-size: 13.094058372661634px;" class="tag-cloud-link">raspberry3B+</a>
+    <a href="/tags/raspberry3B/" style="font-size: 8.542310982991301px;" class="tag-cloud-link">raspberry3B+</a>
     
 </div>
                 
