@@ -10,7 +10,7 @@
     
     
     
-    <title>tags: turtlebot3 | 奇点的猪</title>
+    <title>后台开发核心技术与应用实践-读书笔记 | 奇点的猪</title>
     <link href=”https://haxisnake.github.io“ rel=”prefetch” />
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -178,19 +178,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 gal-right" id="mainstay">
-                    <article class="article well article-body" id="article-tag">
+                    
+<article class="article well article-body" id="article">
     <div class="breadcrumb">
         <i class="fa fa-home"></i>
         <a href="https://haxisnake.github.io">奇点的猪</a>
         >
-        <span>标签</span>
+        <span>后台开发核心技术与应用实践-读书笔记</span>
     </div>
     <!-- 大型设备详细文章 -->
     <div class="hidden-xs">
         <div class="title-article">
             <h1>
-                <a href="/tags/turtlebot3/index.html">turtlebot3</a>
+                <a href="/2019/08/12/后台开发核心技术与应用实践-读书笔记/">后台开发核心技术与应用实践-读书笔记</a>
             </h1>
+        </div>
+        <div class="tag-article">
+            
+            <span class="label label-gal">
+                <i class="fa fa-calendar"></i> 2019-08-12
+            </span>
+            
         </div>
     </div>
     <!-- 小型设备详细文章 -->
@@ -198,21 +206,90 @@
         <center>
             <div class="title-article">
                 <h4>
-                    <a href="/tags/turtlebot3/index.html">turtlebot3</a>
+                    <a href="/2019/08/12/后台开发核心技术与应用实践-读书笔记/">后台开发核心技术与应用实践-读书笔记</a>
                 </h4>
             </div>
+            <p>
+                <i class="fa fa-calendar"></i> 2019-08-12
+            </p>
+            <p>
+                
+                
+            </p>
         </center>
     </div>
-    <div class="content-article" style="margin-top: 30px;">
-        <div class="alert alert-info" style="font-size: 14px; line-height: 2; font-weight: bold;">
-            
-            <a href="/2018/07/18/树莓派3B-turtlebot3ros开发环境搭建问题记录/">树莓派3B——turtlebot3——ROS开发环境搭建问题记录</a>
-            <br>
-            
-            
-        </div>
+    <div class="content-article">
+        <h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><ul>
+<li><p>如何判断是指针数组还是数组指针？</p>
+<p>  依据运算符的优先级： ()&gt;[]&gt;*</p>
+<p>  先与运算符结合的即为实际类别</p>
+<p>  int *p[n] 表示指针数组</p>
+<p>  int (*p)[n] 表示数组指针</p>
+</li>
+<li><p>long 类型在32位机器上只占4Byte，其他类型在32位机器和64位机器都是占同样的大小空间</p>
+</li>
+<li><p>union 中变量共用内存应以最长的为准</p>
+<pre><code>#include&lt;iostream&gt;
+using namespace std;
+union A{
+    int a[5J;
+    char b;
+    double c;
+}
+int main() {
+    cout&lt;&lt;sizeof(A)&lt;&lt;endl;
+    return O;
+}
+</code></pre><p>  程序的执行结果是：<br>  24</p>
+<p>  因为按照double的8字节的</p>
+</li>
+<li><p>宏定义使用注意事项</p>
+<p>  当字符串中不只一个符号时，加上括号表现出优先级，如果是带数的宏定义，则要给宏体中的每个参数加上括号，并在整个宏体上再加一个括号 。</p>
+</li>
+<li><p>do while 与宏定义结合使用 可以宏定义代码块， 同时保证代码块语义不会被拆解。</p>
+<pre><code>#def 工ne Foo(x) do{\
+    statement one;\
+    statement two;\
+}while(0) //这里没有分号
+</code></pre></li>
+<li><p>条件编译 </p>
+</li>
+<li>extern “C” 的使用</li>
+</ul>
+<h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><h2 id="编译与链接"><a href="#编译与链接" class="headerlink" title="编译与链接"></a>编译与链接</h2><ul>
+<li>4个步骤： 预处理(Prepressing)、编译(Compilation)、汇编(Assembly)、链接(Linking)</li>
+</ul>
+
+<ul>
+<li><p>预处理</p>
+<p>  经过预处理之后的.i文件不包含任何宏定义，因为所有的宏定义已经被展开，并且包含的文件也已经被插入到.i文件中。</p>
+</li>
+<li><p>编译</p>
+<p>  编译过程就是把预处理完的文件进行一系列的词法分析、语法分析、语义分析以及优化后产生相应的汇编代码文件，这个过程往往是整个程序构建的核心部分</p>
+</li>
+<li><p>链接</p>
+<p>  把每个源代码模块独立地编译，然后按照要将它们“组装”起来，这个组装模块的过程就是链接 。 链接的主要内容就是把各个模块之间相互引用的部分都处理好，使得各个模块之间能够正确的衔接。</p>
+<ul>
+<li><p>静态链接</p>
+<p>  对函数库的链接是放在编译时期完成的是静态链接。所有相关的目标文件与牵涉到的函数库被链接合成一个可执行文件。 程序在运行时，与函数库再无瓜葛，因为所有需要的函数已复制到相关位置。 这些函数库被称为静态库，通常文件名为“ libxxx.a”的形式 。</p>
+</li>
+<li><p>动态链接</p>
+<p>  对一些库函数的链接载入推迟到程序运行时期（runtime），这就是动态链接库（ dynamic link library）技术。动态库文件名命名规范和静态库文件名命名规范类似，也是在动态库名增加前缀lib但其文件扩展名为.        so。</p>
+<p>  -fPIC ：表示编译为位置独立的代码 。不用此选项的话编译后的代码是位置相关的，所以动态载入时是通过代码复制的方式来满足不同进程的需要，而不能达到真正代码段共享的目的。<br><br>  -Lpath ：表示在 path 目录中搜索库文件，如－L. 则表示在当前目录。<br><br>  -Ipath ：表示在 path 目录中搜索头文件。<br><br>  -ltest ：编译器查找动态连接库时有隐含的命名规则，即在给出的名字前面加lib,后面加上.so来确定库的名称。<br></p>
+<ul>
+<li><p>动态库的搜索路径搜索的先后顺序是：</p>
+<p>  (1)编译目标代码时指定的动态库搜索路径；<br><br>  (2)环境变量 LD_LIBRARY_PATH 指定的动态库搜索路径；<br><br>  (3)配置文件/etc/ld.so.conf中指定的动态库搜索路径；即只需在在该文件中追加一行库所在的完整路径如 “/root/test/conf/lib”即可，然后ldconfig 是修改生效；<br><br>  (4)默认的动态库搜索路径/lib； <br><br>  (5)默认的动态库搜索路径/usr/lib。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
     </div>
 </article>
+
+
                 </div>
                 <aside class="col-md-4 gal-left" id="sidebar">
     <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
@@ -339,7 +416,19 @@
             
             <li class="list-group-item">
                 <span class="post-title">
+                    <a href="/2019/02/18/docker无法启动问题调试/">docker无法启动问题调试</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
                     <a href="/2019/10/09/django文档学习笔记/">django文档学习笔记</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/10/25/二叉树的遍历方法总结-md/">二叉树的遍历方法总结.md</a>
                 </span>
             </li>
             
@@ -357,31 +446,19 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2019/04/09/OpenPose环境搭建笔记/">OpenPose环境搭建笔记</a>
+                    <a href="/2018/12/31/使用python搭建小型搜索引擎/">使用python搭建小型搜索引擎</a>
                 </span>
             </li>
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2019/06/06/化学品预测毒理学平台后台搭建笔记/">化学品预测毒理学平台后台搭建笔记</a>
+                    <a href="/2019/03/26/智能教室项目记录/">智能教室项目记录</a>
                 </span>
             </li>
             
             <li class="list-group-item">
                 <span class="post-title">
                     <a href="/2019/05/07/服务器环境搭建ubuntu18-04-server-cuda10-1-cudann/">服务器环境搭建</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/05/29/设置linux开机启动脚本自动联网认证/">设置linux开机启动脚本自动联网认证</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2018/07/18/树莓派3B-turtlebot3ros开发环境搭建问题记录/">树莓派3B——turtlebot3——ROS开发环境搭建问题记录</a>
                 </span>
             </li>
             
@@ -402,17 +479,17 @@
 
                 
                 <li>
-                    <a href="/tags/turtlebot3/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                    <a href="/2019/08/12/后台开发核心技术与应用实践-读书笔记/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
                 </li>
                 
                 
                 <li>
-                    <a href="/tags/turtlebot3/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
+                    <a href="/2019/08/12/后台开发核心技术与应用实践-读书笔记/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
                 </li>
                 
                 
                 <li>
-                    <a href="/tags/turtlebot3/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                    <a href="/2019/08/12/后台开发核心技术与应用实践-读书笔记/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
                 </li>
                 
             </ul>
@@ -420,37 +497,37 @@
                 
                 <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
     
-    <a href="/tags/bug/" style="font-size: 17.840609734572986px;" class="tag-cloud-link">bug</a>
+    <a href="/tags/bug/" style="font-size: 10.630069148882141px;" class="tag-cloud-link">bug</a>
     
-    <a href="/tags/c/" style="font-size: 12.17572773639354px;" class="tag-cloud-link">c++</a>
+    <a href="/tags/c/" style="font-size: 11.16118687960845px;" class="tag-cloud-link">c++</a>
     
-    <a href="/tags/数据结构/" style="font-size: 15.574971278564483px;" class="tag-cloud-link">数据结构</a>
+    <a href="/tags/数据结构/" style="font-size: 16.805331473730206px;" class="tag-cloud-link">数据结构</a>
     
-    <a href="/tags/环境搭建/" style="font-size: 9.067610711262915px;" class="tag-cloud-link">环境搭建</a>
+    <a href="/tags/环境搭建/" style="font-size: 19.241712327273394px;" class="tag-cloud-link">环境搭建</a>
     
-    <a href="/tags/opencv3/" style="font-size: 10.154621779092533px;" class="tag-cloud-link">opencv3</a>
+    <a href="/tags/opencv3/" style="font-size: 17.66214984905264px;" class="tag-cloud-link">opencv3</a>
     
-    <a href="/tags/Python/" style="font-size: 13.073657396525824px;" class="tag-cloud-link">Python</a>
+    <a href="/tags/Python/" style="font-size: 18.020765654041536px;" class="tag-cloud-link">Python</a>
     
-    <a href="/tags/Scrapy/" style="font-size: 17.114209900747184px;" class="tag-cloud-link">Scrapy</a>
+    <a href="/tags/Scrapy/" style="font-size: 14.88769185598531px;" class="tag-cloud-link">Scrapy</a>
     
-    <a href="/tags/Django/" style="font-size: 18.937581191990112px;" class="tag-cloud-link">Django</a>
+    <a href="/tags/Django/" style="font-size: 16.221904707349253px;" class="tag-cloud-link">Django</a>
     
-    <a href="/tags/Haystack/" style="font-size: 10.381924850943664px;" class="tag-cloud-link">Haystack</a>
+    <a href="/tags/Haystack/" style="font-size: 8.250914013808321px;" class="tag-cloud-link">Haystack</a>
     
-    <a href="/tags/Whoosh/" style="font-size: 19.53269101435743px;" class="tag-cloud-link">Whoosh</a>
+    <a href="/tags/Whoosh/" style="font-size: 14.534072574574648px;" class="tag-cloud-link">Whoosh</a>
     
-    <a href="/tags/Jieba/" style="font-size: 11.74401373538599px;" class="tag-cloud-link">Jieba</a>
+    <a href="/tags/Jieba/" style="font-size: 14.212618310586887px;" class="tag-cloud-link">Jieba</a>
     
-    <a href="/tags/服务器维护/" style="font-size: 18.705575355822802px;" class="tag-cloud-link">服务器维护</a>
+    <a href="/tags/服务器维护/" style="font-size: 19.411494785855815px;" class="tag-cloud-link">服务器维护</a>
     
-    <a href="/tags/raspberry3B/" style="font-size: 8.474554225874009px;" class="tag-cloud-link">raspberry3B</a>
+    <a href="/tags/raspberry3B/" style="font-size: 8.562629666784648px;" class="tag-cloud-link">raspberry3B</a>
     
-    <a href="/tags/ROS/" style="font-size: 14.425788041211px;" class="tag-cloud-link">ROS</a>
+    <a href="/tags/ROS/" style="font-size: 14.214996912961599px;" class="tag-cloud-link">ROS</a>
     
-    <a href="/tags/turtlebot3/" style="font-size: 8.002858880065855px;" class="tag-cloud-link">turtlebot3</a>
+    <a href="/tags/turtlebot3/" style="font-size: 14.741012249792316px;" class="tag-cloud-link">turtlebot3</a>
     
-    <a href="/tags/raspberry3B/" style="font-size: 19.814048514777816px;" class="tag-cloud-link">raspberry3B+</a>
+    <a href="/tags/raspberry3B/" style="font-size: 16.73105301729457px;" class="tag-cloud-link">raspberry3B+</a>
     
 </div>
                 
