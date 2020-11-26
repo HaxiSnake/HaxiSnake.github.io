@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>服务器环境搭建 | 九五之猪</title>
+  
+  
+  
+  <!--link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css"-->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<div class="Shell">
+    <aside class='SideBar'>
+    <section class='avatar' style="background-image: url(/assets/header.png)">
+        <div class='av-pic' style="background-image: url(/assets/pig.jpg)">
+        </div>
+    </section>
+    <section class='menu'>
+        <div>九五之猪</div>
+        
+        <ul>
+          
+            <a href="/" class="Btn">
+              <li>Home</li>
+            </a>  
+          
+            <a href="/archives/" class="Btn">
+              <li>Archive</li>
+            </a>  
+          
+            <a href="/tags/" class="Btn">
+              <li>Tags</li>
+            </a>  
+          
+            <a href="/categories/" class="Btn">
+              <li>Categories</li>
+            </a>  
+          
+            <a href="/about/" class="Btn">
+              <li>About</li>
+            </a>  
+          
+        </ul>
+    </section>
+    <section class="media">
+        
+            
+                <a href="https://github.com/haxisnake">
+                    <img src="/assets/github.svg" />
+                </a>
+            
+        
+    </section>
+</aside>
+
+    <div class="container">
+        <div data-pager-shell>
+            <div>
+  <article class='ContentView'>
+    <header class='PageTitle'>
+        <h1>服务器环境搭建</h1>
+    </header>
+
+    <section>
+      <p>ubuntu18.04-server<br>cuda10.1<br>cudann7.5.0</p>
+<h1 id="安装显卡驱动"><a href="#安装显卡驱动" class="headerlink" title="安装显卡驱动"></a>安装显卡驱动</h1><ol>
+<li><p>linux查看显卡型号</p>
+<p> lshw -numeric -C display</p>
+</li>
+<li><p>下载nvidia官方驱动</p>
+<p> <a href="https://www.geforce.cn/drivers" target="_blank" rel="noopener">官网链接</a></p>
+</li>
+<li><p>bios禁用禁用secure boot</p>
+</li>
+<li><p>禁用nouveau</p>
+<p> 打开文件</p>
+<pre><code>sudo vim /etc/modprobe.d/blacklist.conf
+</code></pre><p> 在最后一行添加:</p>
+<pre><code>blacklist nouveau
+</code></pre><p> 执行如下命令生效</p>
+<pre><code>sudo update-initramfs -u
+</code></pre></li>
+<li><p>重启</p>
+<p> 使用命令查看nouveau有没有运行</p>
+<pre><code>lsmod | grep nouveau  # 没输出代表禁用生效
+</code></pre></li>
+<li><p>停止可视化界面</p>
+<pre><code>sudo telinit 3
+</code></pre></li>
+<li><p>安装驱动</p>
+<p> 先添加可执行权限</p>
+<pre><code>sudo chmod a+x filename.run
+</code></pre><p> 执行安装：</p>
+<pre><code>sudo ./filename.run -no-opengl-files
+</code></pre><p> -noopengl-files这个参数一定要加，否则会循环登录</p>
+</li>
+</ol>
+<h1 id="安装CUDA10-1"><a href="#安装CUDA10-1" class="headerlink" title="安装CUDA10.1"></a>安装CUDA10.1</h1><ol>
+<li><p>下载cuda10.1安装文件 </p>
+<p> <a href="https://developer.nvidia.com/cuda-downloads" target="_blank" rel="noopener">官网链接</a></p>
+</li>
+</ol>
+<ol start="2">
+<li><p>运行安装</p>
+<p> 执行安装文件进行安装，同nvidia驱动的执行方式。</p>
+<p> 注意此时不需要选择安装驱动。驱动版本要注意跟cuda版本相对应。</p>
+</li>
+</ol>
+<h1 id="安装cudann"><a href="#安装cudann" class="headerlink" title="安装cudann"></a>安装cudann</h1><p>请见官网<a href="https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html" target="_blank" rel="noopener">安装教程</a></p>
+
+
+      
+
+    </section>
+    
+      <section class='ArticleMeta'>
+          <div>
+            发布于&nbsp;
+            <time datetime="2019-05-07T03:27:14.000Z" itemprop="datePublished">
+              2019-05-07
+            </time>
+          </div>
+          
+      </section>
+    
+    
+</article>
+
+  
+</div>
+
+            <footer>
+    <div>© 2020 - HaxiSnake </div>
+    <div>
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a>
+        </span>
+        ,
+        <span>
+            Theme - <a href="https://github.com/nameoverflow/hexo-theme-icalm">Icalm</a>
+        </span>
+    </div>
+</footer>
+
+        </div>
+    </div>
+</div>
+<script src="/js/pager/dist/singlepager.js"></script>
+<script>
+var sp = new Pager('data-pager-shell')
+
+</script>
+</body>
+</html>

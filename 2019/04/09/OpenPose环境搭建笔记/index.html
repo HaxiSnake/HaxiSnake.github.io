@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>OpenPose环境搭建笔记 | 九五之猪</title>
+  
+  
+  
+  <!--link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css"-->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<div class="Shell">
+    <aside class='SideBar'>
+    <section class='avatar' style="background-image: url(/assets/header.png)">
+        <div class='av-pic' style="background-image: url(/assets/pig.jpg)">
+        </div>
+    </section>
+    <section class='menu'>
+        <div>九五之猪</div>
+        
+        <ul>
+          
+            <a href="/" class="Btn">
+              <li>Home</li>
+            </a>  
+          
+            <a href="/archives/" class="Btn">
+              <li>Archive</li>
+            </a>  
+          
+            <a href="/tags/" class="Btn">
+              <li>Tags</li>
+            </a>  
+          
+            <a href="/categories/" class="Btn">
+              <li>Categories</li>
+            </a>  
+          
+            <a href="/about/" class="Btn">
+              <li>About</li>
+            </a>  
+          
+        </ul>
+    </section>
+    <section class="media">
+        
+            
+                <a href="https://github.com/haxisnake">
+                    <img src="/assets/github.svg" />
+                </a>
+            
+        
+    </section>
+</aside>
+
+    <div class="container">
+        <div data-pager-shell>
+            <div>
+  <article class='ContentView'>
+    <header class='PageTitle'>
+        <h1>OpenPose环境搭建笔记</h1>
+    </header>
+
+    <section>
+      <h1 id="OpenPose环境搭建笔记"><a href="#OpenPose环境搭建笔记" class="headerlink" title="OpenPose环境搭建笔记"></a>OpenPose环境搭建笔记</h1><h2 id="编译caffe"><a href="#编译caffe" class="headerlink" title="编译caffe"></a>编译caffe</h2><ul>
+<li>recipe for target ‘.build_release/src/caffe/proto/caffe.pb.o’ failed</li>
+</ul>
+<p>参考教程：<br><a href="https://blog.csdn.net/w5688414/article/details/79478695" target="_blank" rel="noopener">https://blog.csdn.net/w5688414/article/details/79478695</a></p>
+<ul>
+<li>./include/caffe/util/hdf5.hpp:6:18: fatal error: hdf5.h: No such file or directory</li>
+</ul>
+<p>解决办法：在Makefile.config找到以下行并添加蓝色部分</p>
+<p>INCLUDE_DIRS := $(PYTHON_INCLUDE) /usr/local/include /usr/include/hdf5/serial </p>
+<p>LIBRARY_DIRS := $(PYTHON_LIB) /usr/local/lib /usr/lib /usr/lib/x86_64-Linux-gnu/hdf5/serial</p>
+<p>3.1 如果仍然提示找不到lhdf5和lhdf5_hl(这是因为ubuntu16.04的文件包含位置发生了变化，尤其是需要用到的hdf5的位置，所以需要更改这一路径)选自<br>caffe —找不到lhdf5_hl和lhdf5的错误</p>
+<p>解决办法：然后根据情况执行下面两句：</p>
+<p>cd /usr/lib/x86_64-linux-gnu</p>
+<p>sudo ln -s libhdf5_serial.so.10.1.0 libhdf5.so</p>
+<p>sudo ln -s libhdf5_serial_hl.so.10.0.2 libhdf5_hl.so</p>
+<ul>
+<li><a href="https://github.com/BVLC/caffe/issues/6359" target="_blank" rel="noopener">https://github.com/BVLC/caffe/issues/6359</a></li>
+</ul>
+<p>/usr/include/c++/5/typeinfo:39:37: error: expected ‘}’ before end of line<br>/usr/include/c++/5/typeinfo:39:37: error: expected unqualified-id before end of line<br>/usr/include/c++/5/typeinfo:39:37: error: expected ‘}’ before end of line<br>/usr/include/c++/5/typeinfo:39:37: error: expected ‘}’ before end of line<br>/usr/include/c++/5/typeinfo:39:37: error: expected ‘}’ before end of line<br>/usr/include/c++/5/typeinfo:39:37: error: expected declaration before end of line<br>Makefile:588: recipe for target ‘.build_release/src/caffe/proto/caffe.pb.o’ failed<br>make: *** [.build_release/src/caffe/proto/caffe.pb.o] Error 1</p>
+<p>CXXFLAGS += -pthread -fPIC $(COMMON_FLAGS) $(WARNINGS) -std=c++11<br>NVCCFLAGS += -D_FORCE_INLINES -ccbin=$(CXX) -Xcompiler -fPIC $(COMMON_FLAGS) -std=c++11<br>LINKFLAGS += -pthread -fPIC $(COMMON_FLAGS) $(WARNINGS) -std=c++11</p>
+<ul>
+<li>Unsupported gpu architecture ‘compute_20’</li>
+</ul>
+<p>注释Makefile.config 中 :</p>
+<pre><code># CUDA architecture setting: going with all of them.
+# For CUDA &lt; 6.0, comment the *_50 through *_61 lines for compatibility.
+# For CUDA &lt; 8.0, comment the *_60 and *_61 lines for compatibility.
+# For CUDA &gt;= 9.0, comment the *_20 and *_21 lines for compatibility.
+CUDA_ARCH :=    -gencode arch=compute_30,code=sm_30 \
+                -gencode arch=compute_35,code=sm_35 \
+                -gencode arch=compute_50,code=sm_50 \
+                -gencode arch=compute_52,code=sm_52 \
+                -gencode arch=compute_60,code=sm_60 \
+                -gencode arch=compute_61,code=sm_61 \
+                -gencode arch=compute_61,code=compute_61
+</code></pre><ul>
+<li>leveldb<br><a href="https://blog.csdn.net/oeljeklaus/article/details/78802922" target="_blank" rel="noopener">https://blog.csdn.net/oeljeklaus/article/details/78802922</a></li>
+</ul>
+<p><a href="https://blog.csdn.net/fogxcg/article/details/75332146" target="_blank" rel="noopener">https://blog.csdn.net/fogxcg/article/details/75332146</a></p>
+<ul>
+<li>build opencv3.4</li>
+</ul>
+<p>cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local -D PYTHON3_EXECUTABLE=/usr/bin/python3 -D PYTHON_INCLUDE_DIR=/us<br>r/include/python3 -D PYTHON_INCLUDE_DIR2=/usr/include/x86_64-linux-gnu/python3.5m -D PYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.5m.so -D PYTHON3_NUMPY_INCLUDE_DIRS=/usr/lib/python3/dist-packages/numpy/core/include/ </p>
+<ul>
+<li>levelDB出错</li>
+</ul>
+<p><a href="https://blog.csdn.net/jyl1999xxxx/article/details/80583465" target="_blank" rel="noopener">https://blog.csdn.net/jyl1999xxxx/article/details/80583465</a></p>
+<ul>
+<li><p>glog 和 gflags 的安装<br><a href="https://www.cnblogs.com/burningTheStar/p/6986048.html" target="_blank" rel="noopener">https://www.cnblogs.com/burningTheStar/p/6986048.html</a><br>-fPIC<br><a href="https://github.com/BVLC/caffe/issues/2171" target="_blank" rel="noopener">https://github.com/BVLC/caffe/issues/2171</a></p>
+</li>
+<li><p>make runtest .build_release/tools/caffe: error while loading shared libraries: libopencv_imgcodecs.so.3.4: cannot open shared object file: No such file or directory<br>Makefile:542: recipe for target ‘runtest’ failed</p>
+</li>
+<li><p>make runtest <a href="https://blog.csdn.net/wonengguwozai/article/details/52724409" target="_blank" rel="noopener">https://blog.csdn.net/wonengguwozai/article/details/52724409</a></p>
+</li>
+</ul>
+<h1 id="编译openpose"><a href="#编译openpose" class="headerlink" title="编译openpose"></a>编译openpose</h1><ul>
+<li>cuda结构不共存 Unsupported gpu architecture ‘compute_xx’</li>
+</ul>
+<p>在cmake-gui 中选择 CUDA_ARCH 为mannul 然后再删掉其中不符合的结构</p>
+<ul>
+<li>g++: error trying to exec ‘cc1plus’: execvp: 没有那个文件或目录</li>
+</ul>
+<p>gcc g++ 版本不兼容 </p>
+<p><a href="https://blog.csdn.net/yile0000/article/details/80105625" target="_blank" rel="noopener">https://blog.csdn.net/yile0000/article/details/80105625</a></p>
+<p>nvidia驱动</p>
+<p><a href="https://blog.csdn.net/wf19930209/article/details/81877822" target="_blank" rel="noopener">https://blog.csdn.net/wf19930209/article/details/81877822</a></p>
+<p>sudo service lightdm stop</p>
+<ul>
+<li>gflags.cc is being linked both statically and dynamically </li>
+</ul>
+<p><a href="https://github.com/google/glog/issues/53" target="_blank" rel="noopener">https://github.com/google/glog/issues/53</a></p>
+<p>修改CmakeCache.txt中的<br>GFLAGS_LIBRARY:FILEPATH=/usr/local/lib/libgflags.a<br>改为：<br>GFLAGS_LIBRARY:FILEPATH=/usr/local/lib/libgflags.so<br>然后重新编译</p>
+<ul>
+<li>[libprotobuf ERROR google/protobuf/message_lite.cc:123] Can’t parse message of type “caffe.NetParameter” because it is missing required fields: layer[0].clip_param.min, layer[0].clip_param.max</li>
+</ul>
+<p>要用openpose自带的caffe库</p>
+<p>选择openpose编译caffe时选项可以在3rdparty/caffe中设置编译参数</p>
+
+
+      
+
+    </section>
+    
+      <section class='ArticleMeta'>
+          <div>
+            发布于&nbsp;
+            <time datetime="2019-04-09T12:29:54.000Z" itemprop="datePublished">
+              2019-04-09
+            </time>
+          </div>
+          
+      </section>
+    
+    
+</article>
+
+  
+</div>
+
+            <footer>
+    <div>© 2020 - HaxiSnake </div>
+    <div>
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a>
+        </span>
+        ,
+        <span>
+            Theme - <a href="https://github.com/nameoverflow/hexo-theme-icalm">Icalm</a>
+        </span>
+    </div>
+</footer>
+
+        </div>
+    </div>
+</div>
+<script src="/js/pager/dist/singlepager.js"></script>
+<script>
+var sp = new Pager('data-pager-shell')
+
+</script>
+</body>
+</html>

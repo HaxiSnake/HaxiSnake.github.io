@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>九五之猪</title>
+  
+  
+  
+  <!--link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css"-->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<div class="Shell">
+    <aside class='SideBar'>
+    <section class='avatar' style="background-image: url(/assets/header.png)">
+        <div class='av-pic' style="background-image: url(/assets/pig.jpg)">
+        </div>
+    </section>
+    <section class='menu'>
+        <div>九五之猪</div>
+        
+        <ul>
+          
+            <a href="/" class="Btn">
+              <li>Home</li>
+            </a>  
+          
+            <a href="/archives/" class="Btn">
+              <li>Archive</li>
+            </a>  
+          
+            <a href="/tags/" class="Btn">
+              <li>Tags</li>
+            </a>  
+          
+            <a href="/categories/" class="Btn">
+              <li>Categories</li>
+            </a>  
+          
+            <a href="/about/" class="Btn">
+              <li>About</li>
+            </a>  
+          
+        </ul>
+    </section>
+    <section class="media">
+        
+            
+                <a href="https://github.com/haxisnake">
+                    <img src="/assets/github.svg" />
+                </a>
+            
+        
+    </section>
+</aside>
+
+    <div class="container">
+        <div data-pager-shell>
+            <ul class="Index">
+  
+    <header class='PageTitle'>
+        <h1>{ 项目总结 }</h1>
+    </header>
+  
+  
+    <li>
+      <article class='ListView'>
+    <header class="title">
+      
+        <h1>
+          <a href="/2018/12/31/使用python搭建小型搜索引擎/">使用python搭建小型搜索引擎</a>
+        </h1>
+      
+      <div class='ListMeta'>
+  <time datetime="2018-12-31T05:19:06.000Z" itemprop="datePublished">
+    2018-12-31
+  </time>
+  
+  | 
+  <ul>
+    
+  <li class="meta-text">
+  { <a href="/tags/Python/">Python</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/Scrapy/">Scrapy</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/Django/">Django</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/Haystack/">Haystack</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/Whoosh/">Whoosh</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/Jieba/">Jieba</a> }
+  </li>
+
+
+  </ul>
+  
+  
+  / 
+  <ul>
+    
+  <li class="meta-text">
+  { <a href="/categories/项目总结/">项目总结</a> }
+  </li>
+
+
+  </ul>
+  
+</div>
+
+    </header>
+    <div>
+      
+        <p><a href="https://github.com/HaxiSnake/EXERCISE/tree/master/others/homework/MessageRetrieval/SearchEngine" target="_blank" rel="noopener">项目代码链接</a></p>
+<h1 id="一、目标"><a href="#一、目标" class="headerlink" title="一、目标"></a>一、目标</h1><p>为准备信息检索课程的期末大作业，因此我使用python搭建了一个小型的搜索引擎，其功能是检索<a href="http://news.dlut.edu.cn/" target="_blank" rel="noopener">大工新闻网</a>的新闻。</p>
+<h1 id="二、原理和工具简介"><a href="#二、原理和工具简介" class="headerlink" title="二、原理和工具简介"></a>二、原理和工具简介</h1><h2 id="2-1-原理"><a href="#2-1-原理" class="headerlink" title="2.1 原理"></a>2.1 原理</h2><p>该搜索引擎的原理是采用scrapy对大工新闻网进行爬虫，提取出文字新闻，并将新闻内容存入数据库A，再利用Django框架搭建一个搜索服务器，在服务器上部署Haystack+Whoosh搜索引擎，使用jieba分词工具来进行中文分词和停用词过滤。通过搜索引擎工具建立索引文件后，在前端完成用户交互界面，实现一个完整的小型搜索引擎。</p>
+<h2 id="2-2-工具简介"><a href="#2-2-工具简介" class="headerlink" title="2.2 工具简介"></a>2.2 工具简介</h2><ul>
+<li><p>Scrapy </p>
+<p>  Python开发的一个快速、高层次的屏幕抓取和web抓取框架，用于抓取web站点并从页面中提取结构化的数据。Scrapy用途广泛，可以用于数据挖掘、监测和自动化测试。</p>
+<p>  在本项目中用来爬取网站数据。</p>
+</li>
+<li><p>Django</p>
+<p>  Django是一个开放源代码的Web应用框架，由Python写成。采用了MVC的框架模式，即模型M，视图V和控制器C。</p>
+<p>  在本项目用来做搜索服务器的框架。</p>
+</li>
+<li><p>Haystack+Whoosh</p>
+<p>  Haystack是一个Django上的应用，可以用于整合搜索引擎，它只依赖于它自身的代码，利用它可以切换不同的搜索引擎工具。Whoosh是一个索引文本和搜索文本的类库，它可以提供搜索文本的服务。</p>
+<p>  在本项目中使用Haystack将Whoosh部署到Django服务器作为搜索引擎后端。</p>
+</li>
+<li><p>Jieba</p>
+<p>  Jieba是一个python实现的分词库，对中文有着很强大的分词能力。</p>
+<p>  在本项目用于对新闻进行中文分词和停用词过滤。</p>
+</li>
+</ul>
+<h1 id="三、开发环境和运行环境"><a href="#三、开发环境和运行环境" class="headerlink" title="三、开发环境和运行环境"></a>三、开发环境和运行环境</h1><h2 id="3-1-开发环境"><a href="#3-1-开发环境" class="headerlink" title="3.1 开发环境"></a>3.1 开发环境</h2><ul>
+<li>win 10 </li>
+<li>python 3.6.5  </li>
+<li>scrapy 1.5.1 <a href="https://www.cnblogs.com/MC-Curry/p/8503813.html" target="_blank" rel="noopener">安装教程</a></li>
+<li>Django 2.1.3 <a href="https://docs.djangoproject.com/zh-hans/2.1/howto/windows/" target="_blank" rel="noopener">安装教程</a></li>
+<li>Haystack+Whoosh <a href="https://django-haystack.readthedocs.io/en/master/tutorial.html" target="_blank" rel="noopener">配置教程</a></li>
+<li>Jieba 0.39 <a href="https://blog.csdn.net/yx1179109710/article/details/81304036" target="_blank" rel="noopener">配置教程</a></li>
+</ul>
+<h2 id="3-2-运行环境"><a href="#3-2-运行环境" class="headerlink" title="3.2 运行环境"></a>3.2 运行环境</h2><p>同开发环境</p>
+<h1 id="四、系统模块"><a href="#四、系统模块" class="headerlink" title="四、系统模块"></a>四、系统模块</h1><h2 id="4-1-网络爬虫模块"><a href="#4-1-网络爬虫模块" class="headerlink" title="4.1 网络爬虫模块"></a>4.1 网络爬虫模块</h2><h3 id="定义用于Scrapy爬虫的数据类型，包括链接、标题和文章内容"><a href="#定义用于Scrapy爬虫的数据类型，包括链接、标题和文章内容" class="headerlink" title="定义用于Scrapy爬虫的数据类型，包括链接、标题和文章内容:"></a>定义用于Scrapy爬虫的数据类型，包括链接、标题和文章内容:</h3><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewsItem</span><span class="params">(scrapy.Item)</span>:</span></span><br><span class="line">    url = scrapy.Field() </span><br><span class="line">    title = scrapy.Field()</span><br><span class="line">    content = scrapy.Field()</span><br></pre></td></tr></table></figure>
+</code></pre><h3 id="编写爬虫策略"><a href="#编写爬虫策略" class="headerlink" title="编写爬虫策略:"></a>编写爬虫策略:</h3><p>爬虫策略的制定依据于网页源代码的链接形式，由于要爬取的是文字类新闻，所以要跟进与文字类新闻的链接。对于具体的新闻页利用回调函数爬取其链接、标题和内容。而对于新闻列表页，需要跟进下一页的链接。具体规则代码如下:</p>
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewsSpider</span><span class="params">(CrawlSpider)</span>:</span></span><br><span class="line">    print(<span class="string">"news spider starting"</span>)</span><br><span class="line">    name = <span class="string">'news'</span></span><br><span class="line">    allowed_domains = [<span class="string">'news.dlut.edu.cn'</span>]</span><br><span class="line">    start_urls = [<span class="string">'http://news.dlut.edu.cn/'</span>]</span><br><span class="line"></span><br><span class="line">    rules = (</span><br><span class="line">        <span class="comment"># 对于新闻页链接进行跟进</span></span><br><span class="line">        Rule(LinkExtractor(allow=(<span class="string">"xw/[a-z]+.htm"</span>))),</span><br><span class="line">        <span class="comment"># 对于详细新闻页利用parse_item回调函数进行内容爬取</span></span><br><span class="line">        Rule(LinkExtractor(allow=(<span class="string">"info/\d&#123;4,&#125;/\d&#123;3,&#125;\.htm"</span>)),callback=<span class="string">"parse_item"</span>),</span><br><span class="line">        <span class="comment"># 对于新闻列表中的下一页链接进行跟进</span></span><br><span class="line">        Rule(LinkExtractor(allow=(<span class="string">"\d&#123;1,&#125;.htm"</span>),restrict_xpaths=<span class="string">"//a[@class='Next']"</span>)),</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_item</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        self.log(<span class="string">"Hi, this is a new page! %s"</span>% response.url)</span><br><span class="line">        item = NewsItem()</span><br><span class="line">        item[<span class="string">'title'</span>] = response.xpath(<span class="string">'/html/head/title/text()'</span>).extract()[<span class="number">0</span>]</span><br><span class="line">        item[<span class="string">'url'</span>] = response.url</span><br><span class="line">        item[<span class="string">'content'</span>]=response.xpath(<span class="string">"//div[@class='cont-detail fs-small']/p/text()"</span>).extract()</span><br><span class="line">        <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+</code></pre><h3 id="使用pipline机制将数据保存至数据库当中"><a href="#使用pipline机制将数据保存至数据库当中" class="headerlink" title="使用pipline机制将数据保存至数据库当中"></a>使用pipline机制将数据保存至数据库当中</h3><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SpiderprojectPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> spider.name == <span class="string">'news'</span>:</span><br><span class="line">            conn = sqlite3.connect(<span class="string">'db.sqlite3'</span>) </span><br><span class="line">            cursor = conn.cursor()</span><br><span class="line">            title = item[<span class="string">'title'</span>]</span><br><span class="line">            url = item[<span class="string">'url'</span>]</span><br><span class="line">            content_tmp = item[<span class="string">'content'</span>]</span><br><span class="line">            content=<span class="string">""</span></span><br><span class="line">            <span class="keyword">for</span> p <span class="keyword">in</span> content_tmp:</span><br><span class="line">                content+=p.strip()</span><br><span class="line">            sql_search = <span class="string">'select arturl from search_article where arturl=="%s"'</span> % (url) </span><br><span class="line">            sql = <span class="string">'insert into articles_article(title, content, arturl) values("%s", "%s", "%s")'</span>%(title, content, url)</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="comment">#如果当前数据库中不存在该条新闻，则将新闻保存至数据库当中</span></span><br><span class="line">                cursor.execute(sql_search)</span><br><span class="line">                result_search = cursor.fetchone()</span><br><span class="line">                <span class="keyword">if</span> result_search <span class="keyword">is</span> <span class="keyword">None</span> <span class="keyword">or</span> result_search[<span class="number">0</span>].strip()==<span class="string">''</span>:</span><br><span class="line">                    cursor.execute(sql)</span><br><span class="line">                    result=cursor.fetchone()</span><br><span class="line">                    conn.commit()</span><br><span class="line">                cursor.execute(sql)</span><br><span class="line">                result=cursor.fetchone()</span><br><span class="line">                conn.commit()</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                print(<span class="string">"&gt;&gt;&gt; catch exception !"</span>)</span><br><span class="line">                print(e)</span><br><span class="line">                conn.rollback()</span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+</code></pre><h2 id="4-2-搜索模块"><a href="#4-2-搜索模块" class="headerlink" title="4.2 搜索模块"></a>4.2 搜索模块</h2><p>在要进行搜索的应用的models.py文件中建立model类用来表示要进行搜索的新闻文章</p>
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Article</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    title = models.CharField(max_length=<span class="number">50</span>)</span><br><span class="line">    arturl = models.CharField(max_length=<span class="number">200</span>)</span><br><span class="line">    content = models.CharField(max_length=<span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+</code></pre><p>同时使用django命令<code>python manage.py makemigrations</code>和<code>python manage.py migrate</code>生成数据库文件，并用爬虫得到的数据库替换生成的数据库。</p>
+<p>在django框架中配置Haystack+Whoosh来引入搜索模块</p>
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置搜索引擎后端</span></span><br><span class="line">HAYSTACK_CONNECTIONS=&#123;</span><br><span class="line">    <span class="string">'default'</span>:&#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'articles.whoosh_cn_backend.WhooshEngine'</span>,</span><br><span class="line">        <span class="comment"># 索引文件路径</span></span><br><span class="line">        <span class="string">'PATH'</span>: os.path.join(BASE_DIR, <span class="string">'whoosh_index'</span>),  <span class="comment"># 在项目目录下创建文件夹 whoosh_index</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 当添加、修改、删除数据时，自动生成索引</span></span><br><span class="line">HAYSTACK_SIGNAL_PROCESSOR = <span class="string">'haystack.signals.RealtimeSignalProcessor'</span></span><br><span class="line"><span class="comment"># 每页显示十条搜索结果</span></span><br><span class="line">HAYSTACK_SEARCH_RESULTS_PER_PAGE = <span class="number">10</span></span><br></pre></td></tr></table></figure>
+</code></pre><p>在要进行搜索的应用的目录下建立search_indexes.py文件</p>
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> haystack <span class="keyword">import</span> indexes</span><br><span class="line"><span class="keyword">from</span> articles.models <span class="keyword">import</span> Article</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArticleIndex</span><span class="params">(indexes.SearchIndex, indexes.Indexable)</span>:</span>     <span class="comment">#类名必须为需要检索的Model_name+Index，这里需要检索Article，所以创建ArticleIndex</span></span><br><span class="line">    text = indexes.CharField(document=<span class="keyword">True</span>, use_template=<span class="keyword">True</span>)  <span class="comment">#创建一个text字段</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_model</span><span class="params">(self)</span>:</span>          <span class="comment">#重载get_model方法，必须要有！</span></span><br><span class="line">        <span class="keyword">return</span> Article</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">index_queryset</span><span class="params">(self, using=None)</span>:</span>   <span class="comment">#重载index_..函数</span></span><br><span class="line">        <span class="string">"""Used when the entire index for model is updated."""</span></span><br><span class="line">        <span class="keyword">return</span> self.get_model().objects.all()</span><br></pre></td></tr></table></figure>
+</code></pre><p>在articles\templates\search\indexes\articles\下建立article_text.txt文件确定搜索内容</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; object.title &#125;&#125;</span><br><span class="line">&#123;&#123; object.content &#125;&#125;</span><br><span class="line">&#123;&#123; object.url &#125;&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><h2 id="4-2-预处理模块"><a href="#4-2-预处理模块" class="headerlink" title="4.2 预处理模块"></a>4.2 预处理模块</h2><p>使用jieba来进行中文分词，需要在whoosh_cn_backend文件中替换StemmingAnalyzer为ChineseAnalyzer</p>
+<p>同时引入停用词表，配置ChineseAnalyzer使其支持停用词过滤</p>
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># 导入停用词过滤表</span></span><br><span class="line">stop_file_dir=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))</span><br><span class="line">STOP_WORDS = frozenset([line.strip() <span class="keyword">for</span> line <span class="keyword">in</span> open(os.path.join(stop_file_dir, <span class="string">'stop.txt'</span>),<span class="string">'r'</span>,encoding=<span class="string">'gbk'</span>).readlines()])</span><br><span class="line"></span><br><span class="line">accepted_chars = re.compile(<span class="string">r"[\u4E00-\u9FD5]+"</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChineseTokenizer</span><span class="params">(Tokenizer)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, text, **kargs)</span>:</span></span><br><span class="line">        words = jieba.tokenize(text, mode=<span class="string">"search"</span>)</span><br><span class="line">        token = Token()</span><br><span class="line">        <span class="keyword">for</span> (w, start_pos, stop_pos) <span class="keyword">in</span> words:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> accepted_chars.match(w) <span class="keyword">and</span> len(w) &lt;= <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            token.original = token.text = w</span><br><span class="line">            token.pos = start_pos</span><br><span class="line">            token.startchar = start_pos</span><br><span class="line">            token.endchar = stop_pos</span><br><span class="line">            <span class="keyword">yield</span> token</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ChineseAnalyzer</span><span class="params">(stoplist=STOP_WORDS, minsize=<span class="number">1</span>, stemfn=stem, cachesize=<span class="number">50000</span>)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (ChineseTokenizer() | LowercaseFilter() |</span><br><span class="line">                StopFilter(stoplist=stoplist, minsize=minsize) |</span><br><span class="line">                StemFilter(stemfn=stemfn, ignore=<span class="keyword">None</span>, cachesize=cachesize))</span><br></pre></td></tr></table></figure>
+</code></pre><p>配置完成后使用<code>python manage.py rebuild_index</code>建立搜索索引</p>
+<h2 id="4-4-交互模块"><a href="#4-4-交互模块" class="headerlink" title="4.4 交互模块"></a>4.4 交互模块</h2><p>搜索首页html关键代码：</p>
+<pre><code><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">'get'</span> <span class="attr">action</span>=<span class="string">"/search/"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"q"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"查询"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</code></pre><p>首页如下图所示：<br><img src="/2018/12/31/使用python搭建小型搜索引擎/query.jpg" title="image"></p>
+<p>查询结果页html关键代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;% load highlight %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>搜索&amp;nbsp;<span class="tag">&lt;<span class="name">b</span>&gt;</span>&#123;&#123;query&#125;&#125;<span class="tag">&lt;/<span class="name">b</span>&gt;</span>&amp;nbsp;结果如下：<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">&#123;%for item in page%&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;item.object.title|safe&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;% highlight item.object.content with query %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;item.object.arturl&#125;&#125;"</span>&gt;</span>&#123;&#123;item.object.arturl&#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">&#123;%empty%&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>啥也没找到<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">&#123;%endfor%&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">&#123;%for pindex in page.paginator.page_range%&#125;</span><br><span class="line">    &#123;%if pindex == page.number%&#125;</span><br><span class="line">        &#123;&#123;pindex&#125;&#125;&amp;nbsp;&amp;nbsp;</span><br><span class="line">    &#123;%else%&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"?q=&#123;&#123;query&#125;&#125;&amp;amp;page=&#123;&#123;pindex&#125;&#125;"</span>&gt;</span>&#123;&#123;pindex&#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span>&amp;nbsp;&amp;nbsp;</span><br><span class="line">    &#123;%endif%&#125;</span><br><span class="line">&#123;%endfor%&#125;</span><br></pre></td></tr></table></figure>
+<p>其中使用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% load highlight %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;% highlight item.object.content with query %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>进行搜索结果的高亮显示</p>
+<p>最终搜索页面如下图所示：</p>
+<img src="/2018/12/31/使用python搭建小型搜索引擎/search.jpg" title="image">
+<h1 id="五、项目代码"><a href="#五、项目代码" class="headerlink" title="五、项目代码"></a>五、项目代码</h1><p><a href="https://github.com/HaxiSnake/EXERCISE/tree/master/homework/MessageRetrieval/SearchEngine" target="_blank" rel="noopener">代码链接</a></p>
+
+      
+    </div>
+</article>
+
+    </li>
+  
+</ul>
+
+
+            <footer>
+    <div>© 2020 - HaxiSnake </div>
+    <div>
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a>
+        </span>
+        ,
+        <span>
+            Theme - <a href="https://github.com/nameoverflow/hexo-theme-icalm">Icalm</a>
+        </span>
+    </div>
+</footer>
+
+        </div>
+    </div>
+</div>
+<script src="/js/pager/dist/singlepager.js"></script>
+<script>
+var sp = new Pager('data-pager-shell')
+
+</script>
+</body>
+</html>
