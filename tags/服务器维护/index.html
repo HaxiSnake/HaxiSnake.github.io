@@ -1,562 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cmn-Hans">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="author" content="HaxiSnake">
-    
-    
-    
-    
-    
-    
-    <title>tags: 服务器维护 | 奇点的猪</title>
-    <link href=”https://haxisnake.github.io“ rel=”prefetch” />
-
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/aos.css">
-<link rel="stylesheet" href="/css/style.css">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/aos.js"></script>
-    <script src="/js/highslide/highslide-full.min.js"></script>
-    <link rel="stylesheet" href="/js/highslide/highslide.css">
-    <style type="text/css">
-        @media (max-width: 768px) {
-            body {
-                background-color: #f0f0f0;
-                background: url('/imgs/xsbg.gif');
-                background-attachment: fixed;
-            }
-        }
-    </style>
-    
-    <!--<script type="text/javascript">
-      if (document.images) {
-        var avatar = new Image();
-        avatar.src = '/imgs/head/2.jpeg'
-        var previews = 'preview1.png,preview2.jpg,preview3.jpg,preview4.png,preview5.jpg'.split(',')
-        var previewsPreLoad = []
-        for(var i = 0; i < length; i++) {
-          previewsPreLoad.push(new Image())
-          previewsPreLoad[previewsPreLoad.length - 1].src = '/imgs/preview' + previews[i]
-        }
-      }
-    </script>-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>九五之猪</title>
+  
+  
+  
+  <!--link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css"-->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-    <!-- 背景轮播图功能 -->
-    <section class="hidden-xs">
-    <ul class="cb-slideshow">
-        <li><span>天若</span></li>
-        <li><span>有情</span></li>
-        <li><span>天亦老</span></li>
-        <li><span>我为</span></li>
-        <li><span>长者</span></li>
-        <li><span>续一秒</span></li>
-    </ul>
-</section>
-    <!-- 欧尼酱功能, 谁用谁知道 -->
-    
-    <header class="navbar navbar-inverse" id="gal-header">
+<div class="Shell">
+    <aside class='SideBar'>
+    <section class='avatar' style="background-image: url(/assets/header.png)">
+        <div class='av-pic' style="background-image: url(/assets/pig.jpg)">
+        </div>
+    </section>
+    <section class='menu'>
+        <div>九五之猪</div>
+        
+        <ul>
+          
+            <a href="/" class="Btn">
+              <li>Home</li>
+            </a>  
+          
+            <a href="/archives/" class="Btn">
+              <li>Archive</li>
+            </a>  
+          
+            <a href="/tags/" class="Btn">
+              <li>Tags</li>
+            </a>  
+          
+            <a href="/categories/" class="Btn">
+              <li>Categories</li>
+            </a>  
+          
+            <a href="/about/" class="Btn">
+              <li>About</li>
+            </a>  
+          
+        </ul>
+    </section>
+    <section class="media">
+        
+            
+                <a href="https://github.com/haxisnake">
+                    <img src="/assets/github.svg" />
+                </a>
+            
+        
+    </section>
+</aside>
+
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse" data-target=".bs-navbar-collapse"
-                    aria-expanded="false">
-                <span class="fa fa-lg fa-reorder"></span>
-            </button>
-            <a href="https://haxisnake.github.io">
-                
-                <style>
-                    #gal-header .navbar-brand {
-                        height: 54px;
-                        line-height: 24px;
-                        font-size: 28px;
-                        opacity: 1;
-                        background-color: rgba(0,0,0,0);
-                        text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 15px #fff,0 0 20px #228DFF,0 0 35px #228DFF,0 0 40px #228DFF,0 0 50px #228DFF,0 0 75px #228DFF;
-                    }
-                </style>
-                <!-- 这里使用文字(navbar_text or config.title) -->
-                <div class="navbar-brand">HaxiSnake</div>
-                
-            </a>
-        </div>
-        <div class="collapse navbar-collapse bs-navbar-collapse">
-            <ul class="nav navbar-nav" id="menu-gal">
-                
-                
-                <li class="">
-                    <a href="/">
-                        <i class="fa fa-home"></i>首页
-                    </a>
-                </li>
-                
-                
-                
-                <li class="">
-                    <a href="/archives">
-                        <i class="fa fa-archive"></i>归档
-                    </a>
-                </li>
-                
-                
-                
-                
-                <li class="dropdown">
-                    <!-- TODO 添加hover dropdown效果 -->
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
-                        <i class="fa fa-list"></i>分类
-                    </a>
-                    <ul class="dropdown-menu">
-                        
-                        
-                        <li>
-                            <a href="/categories/调试记录/">调试记录</a>
-                        </li>
-                        
-                        <li>
-                            <a href="/categories/项目总结/">项目总结</a>
-                        </li>
-                        
-                        
-                        
-                    </ul>
-                </li>
-                
-                
-                
-                
-                
-                <li class="dropdown">
-                    <!-- TODO 添加hover dropdown效果 -->
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
-                        <i class="fa fa-tags"></i>标签
-                    </a>
-                    <ul class="dropdown-menu">
-                        
-                        
-                        <li>
-                            <a href="/tags/bug/">bug</a>
-                        </li>
-                        
-                        <li>
-                            <a href="/tags/c/">c++</a>
-                        </li>
-                        
-                        <li>
-                            <a href="/tags/数据结构/">数据结构</a>
-                        </li>
-                        
-                        
-                        <li>
-                            <a href="/tags">...</a>
-                        </li>
-                        
-                        
-                    </ul>
-                </li>
-                
-                
-                
-                
-                <li class="">
-                    <a href="/about">
-                        <i class="fa fa-user"></i>关于我
-                    </a>
-                </li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</header>
-    <div id="gal-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 gal-right" id="mainstay">
-                    <article class="article well article-body" id="article-tag">
-    <div class="breadcrumb">
-        <i class="fa fa-home"></i>
-        <a href="https://haxisnake.github.io">奇点的猪</a>
-        >
-        <span>标签</span>
-    </div>
-    <!-- 大型设备详细文章 -->
-    <div class="hidden-xs">
-        <div class="title-article">
-            <h1>
-                <a href="/tags/服务器维护/index.html">服务器维护</a>
-            </h1>
-        </div>
-    </div>
-    <!-- 小型设备详细文章 -->
-    <div class="visible-xs">
-        <center>
-            <div class="title-article">
-                <h4>
-                    <a href="/tags/服务器维护/index.html">服务器维护</a>
-                </h4>
-            </div>
-        </center>
-    </div>
-    <div class="content-article" style="margin-top: 30px;">
-        <div class="alert alert-info" style="font-size: 14px; line-height: 2; font-weight: bold;">
-            
-            <a href="/2019/05/29/设置linux开机启动脚本自动联网认证/">设置linux开机启动脚本自动联网认证</a>
-            <br>
-            
-            
-        </div>
+        <div data-pager-shell>
+            <ul class="Index">
+  
+    <header class='PageTitle'>
+        <h1>{ 服务器维护 }</h1>
+    </header>
+  
+  
+    <li>
+      <article class='ListView'>
+    <header class="title">
+      
+        <h1>
+          <a href="/2019/05/29/设置linux开机启动脚本自动联网认证/">设置linux开机启动脚本自动联网认证</a>
+        </h1>
+      
+      <div class='ListMeta'>
+  <time datetime="2019-05-29T13:59:42.000Z" itemprop="datePublished">
+    2019-05-29
+  </time>
+  
+  | 
+  <ul>
+    
+  <li class="meta-text">
+  { <a href="/tags/服务器维护/">服务器维护</a> }
+  </li>
+
+
+  </ul>
+  
+  
+</div>
+
+    </header>
+    <div>
+      
+        <p>由于学校的网络需要认证上网,每次服务器上网都用个人账号认证，因此需要配置下开机启动脚本使其自动上网。(其实就是没钱惹的祸)</p>
+<h1 id="一、上网认证的脚本"><a href="#一、上网认证的脚本" class="headerlink" title="一、上网认证的脚本"></a>一、上网认证的脚本</h1><p>先安装依赖:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-pip</span><br><span class="line">sudo pip3 install schedule </span><br><span class="line">sudo pip3 install argparse</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><figcaption><span>task.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> schedule</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> quote, unquote</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">job</span><span class="params">(User,Pass)</span>:</span></span><br><span class="line">    base_url = <span class="string">'http://auth.dlut.edu.cn'</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        resp = requests.get(base_url)</span><br><span class="line">        print(<span class="string">"conneting..."</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception:</span><br><span class="line">        <span class="comment">#print("Already connected...")</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    query = resp.text[resp.text.find(<span class="string">'wlanuserip'</span>):resp.text.find(<span class="string">'&lt;/script&gt;'</span>)]</span><br><span class="line">    query_str = quote(quote(query))</span><br><span class="line"></span><br><span class="line">    url = base_url + <span class="string">'/eportal/InterFace.do?method=login'</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">'userId'</span>: User,  <span class="comment"># username 1</span></span><br><span class="line">        <span class="string">'password'</span>: Pass,  <span class="comment"># password</span></span><br><span class="line">        <span class="string">'service'</span>: <span class="string">''</span>,  <span class="comment"># empty</span></span><br><span class="line">        <span class="string">'queryString'</span>: query_str,</span><br><span class="line">        <span class="string">'operatorPwd'</span>: <span class="string">''</span>,  <span class="comment"># empty</span></span><br><span class="line">        <span class="string">'operatorUserId'</span>: <span class="string">''</span>,  <span class="comment"># empty</span></span><br><span class="line">        <span class="string">'validcode'</span>: <span class="string">''</span>,  <span class="comment"># empty</span></span><br><span class="line">    &#125;</span><br><span class="line">    headers = &#123;<span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded; charset=UTF-8'</span>&#125;</span><br><span class="line">    resp = requests.post(url, data, headers=headers)</span><br><span class="line">    print(resp.status_code)</span><br><span class="line">    print(resp.text)</span><br><span class="line">parser = argparse.ArgumentParser(description=<span class="string">'connect to dlut'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-u'</span>,type=str, help=<span class="string">'user name'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-p'</span>,type=str, help=<span class="string">'user name'</span>)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line">User = args.u</span><br><span class="line">Pass = args.p</span><br><span class="line"></span><br><span class="line">job(User, Pass)</span><br><span class="line">schedule.every(<span class="number">300</span>).minutes.do(job,User,Pass)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    schedule.run_pending()</span><br><span class="line">    time.sleep(<span class="number">300</span>)</span><br></pre></td></tr></table></figure>
+<p>其主要作用是进行认证链接,命令行调用格式为:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 task.py -u username -p passwd</span><br></pre></td></tr></table></figure></p>
+<p>username是认证用户名，passwd是对应密码</p>
+<h1 id="二、编写bash脚本调用登陆脚本"><a href="#二、编写bash脚本调用登陆脚本" class="headerlink" title="二、编写bash脚本调用登陆脚本"></a>二、编写bash脚本调用登陆脚本</h1><figure class="highlight bash"><figcaption><span>connect.sh</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">python3 /home/sie/netset/task.py -u username  -p passwd &amp;</span><br><span class="line">``` </span><br><span class="line">添加可执行权限:</span><br><span class="line">``` bash</span><br><span class="line">chmod +x connect.sh</span><br></pre></td></tr></table></figure>
+<p>将connect.sh和task.py都放到同一目录下 设为path_to_sp</p>
+<h1 id="三、在-etc-rc-local里添加开机启动脚本命令"><a href="#三、在-etc-rc-local里添加开机启动脚本命令" class="headerlink" title="三、在/etc/rc.local里添加开机启动脚本命令"></a>三、在/etc/rc.local里添加开机启动脚本命令</h1><ul>
+<li><p>配置rc-local.service服务使其能够执行开机启动脚本 <a href="https://www.cnblogs.com/defifind/p/9285456.html" target="_blank" rel="noopener">参考教程</a></p>
+</li>
+<li><p>root权限创建/etc/rc.local文件并写入开机启动的脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/sh -e</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># rc.local</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># This script is executed at the end of each multiuser runlevel.</span></span><br><span class="line"><span class="comment"># Make sure that the script will "exit 0" on success or any other</span></span><br><span class="line"><span class="comment"># value on error.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># In order to enable or disable this script just change the execution</span></span><br><span class="line"><span class="comment"># bits.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># By default this script does nothing.</span></span><br><span class="line">su -s /bin/sh sie -c<span class="string">"path_to_sp/connect.sh"</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>其中path_to_sp为connect.sh和task.py的目录</p>
+<p>至此开机启动配置结束。</p>
+<p>以前一直想搞定开机启动脚本的事情，但是总不得其要点，特此记录，以后还要多多了解原理才是。</p>
+
+      
     </div>
 </article>
-                </div>
-                <aside class="col-md-4 gal-left" id="sidebar">
-    <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
-<aside id="sidebar-search">
-    <div class="search hidden-xs" data-aos="fade-up" data-aos-duration="2000">
-        <form class="form-inline clearfix" id="search-form" method="get"
-              action="/search/index.html">
-            <input type="text" name="s" class="form-control" id="searchInput" placeholder="搜索文章~" autocomplete="off">
-            <button class="btn btn-danger btn-gal" type="submit">
-                <i class="fa fa-search"></i>
-            </button>
-        </form>
-    </div>
-</aside>
-    <aside id="sidebar-author">
-    <div class="panel panel-gal" data-aos="flip-right" data-aos-duration="3000">
-        <div class="panel-heading" style="text-align: center">
-            <i class="fa fa-quote-left"></i>
-            HaxiSnake
-            <i class="fa fa-quote-right"></i>
-        </div>
-        <div class="author-panel text-center">
-            <img src="/imgs/head/2.jpeg" width="140" height="140"
-                 alt="个人头像" class="author-image">
-            <p class="author-description"></p>
-        </div>
-    </div>
-</aside>
-    
-    <!-- 要配置好leancloud才能开启此小工具 -->
-    
-    
-    <aside id="sidebar-recent_posts">
-    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
-        <div class="panel-heading">
-            <i class="fa fa-refresh"></i>
-            近期文章
-            <i class="fa fa-times-circle panel-remove"></i>
-            <i class="fa fa-chevron-circle-up panel-toggle"></i>
-        </div>
-        <ul class="list-group list-group-flush">
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/10/25/二叉树的遍历方法总结/">二叉树的遍历方法总结</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/10/09/django文档学习笔记/">django文档学习笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/08/12/后台开发核心技术与应用实践-读书笔记/">后台开发核心技术与应用实践-读书笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/06/06/化学品预测毒理学平台后台搭建笔记/">化学品预测毒理学平台后台搭建笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/05/29/设置linux开机启动脚本自动联网认证/">设置linux开机启动脚本自动联网认证</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/05/07/服务器环境搭建ubuntu18-04-server-cuda10-1-cudann/">服务器环境搭建</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/04/09/OpenPose环境搭建笔记/">OpenPose环境搭建笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/03/26/智能教室项目记录/">智能教室项目记录</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/02/18/docker无法启动问题调试/">docker无法启动问题调试</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/01/14/C-vector-size-与有符号数比较要注意的问题/">C++ vector size()与有符号数比较要注意的问题</a>
-                </span>
-            </li>
-            
-        </ul>
-    </div>
-</aside>
-    
-    
-    <aside id="sidebar-rand_posts">
-    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
-        <div class="panel-heading">
-            <i class="fa fa-refresh"></i>
-            随机文章
-            <i class="fa fa-times-circle panel-remove"></i>
-            <i class="fa fa-chevron-circle-up panel-toggle"></i>
-        </div>
-        <ul class="list-group list-group-flush">
-            
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/01/14/C-vector-size-与有符号数比较要注意的问题/">C++ vector size()与有符号数比较要注意的问题</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/02/18/docker无法启动问题调试/">docker无法启动问题调试</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2018/07/17/opencv3-ubuntu16-04-install/">opencv3-ubuntu16.04-install</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/08/12/后台开发核心技术与应用实践-读书笔记/">后台开发核心技术与应用实践-读书笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/04/09/OpenPose环境搭建笔记/">OpenPose环境搭建笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2018/12/31/使用python搭建小型搜索引擎/">使用python搭建小型搜索引擎</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/06/06/化学品预测毒理学平台后台搭建笔记/">化学品预测毒理学平台后台搭建笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/03/26/智能教室项目记录/">智能教室项目记录</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/05/29/设置linux开机启动脚本自动联网认证/">设置linux开机启动脚本自动联网认证</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/10/25/二叉树的遍历方法总结/">二叉树的遍历方法总结</a>
-                </span>
-            </li>
-            
-        </ul>
-    </div>
-</aside>
-    
-    
-    <aside id="gal-sets">
-        <div class="panel panel-gal hidden-xs" data-aos="fade-up" data-aos-duration="2000">
-            <ul class="nav nav-pills pills-gal">
 
-                
-                <li>
-                    <a href="/tags/服务器维护/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
-                </li>
-                
-                
-                <li>
-                    <a href="/tags/服务器维护/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
-                </li>
-                
-                
-                <li>
-                    <a href="/tags/服务器维护/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
-                </li>
-                
-            </ul>
-            <div class="tab-content">
-                
-                <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
-    
-    <a href="/tags/bug/" style="font-size: 14.230724054202444px;" class="tag-cloud-link">bug</a>
-    
-    <a href="/tags/c/" style="font-size: 13.336341548425303px;" class="tag-cloud-link">c++</a>
-    
-    <a href="/tags/数据结构/" style="font-size: 19.73383771067389px;" class="tag-cloud-link">数据结构</a>
-    
-    <a href="/tags/环境搭建/" style="font-size: 17.17191434353546px;" class="tag-cloud-link">环境搭建</a>
-    
-    <a href="/tags/opencv3/" style="font-size: 9.747194753392527px;" class="tag-cloud-link">opencv3</a>
-    
-    <a href="/tags/Python/" style="font-size: 10.338360835651944px;" class="tag-cloud-link">Python</a>
-    
-    <a href="/tags/Scrapy/" style="font-size: 18.92040986357413px;" class="tag-cloud-link">Scrapy</a>
-    
-    <a href="/tags/Django/" style="font-size: 9.243280970934551px;" class="tag-cloud-link">Django</a>
-    
-    <a href="/tags/Haystack/" style="font-size: 11.137180416147771px;" class="tag-cloud-link">Haystack</a>
-    
-    <a href="/tags/Whoosh/" style="font-size: 9.288862316820826px;" class="tag-cloud-link">Whoosh</a>
-    
-    <a href="/tags/Jieba/" style="font-size: 12.214776757147527px;" class="tag-cloud-link">Jieba</a>
-    
-    <a href="/tags/服务器维护/" style="font-size: 11.18933249300949px;" class="tag-cloud-link">服务器维护</a>
-    
-    <a href="/tags/raspberry3B/" style="font-size: 11.128670425775212px;" class="tag-cloud-link">raspberry3B</a>
-    
-    <a href="/tags/ROS/" style="font-size: 12.272880695766355px;" class="tag-cloud-link">ROS</a>
-    
-    <a href="/tags/turtlebot3/" style="font-size: 8.04847694963135px;" class="tag-cloud-link">turtlebot3</a>
-    
-    <a href="/tags/raspberry3B/" style="font-size: 14.787985895873973px;" class="tag-cloud-link">raspberry3B+</a>
-    
-</div>
-                
-                
-                <div class="friend-links tab-pane nav bs-sidenav fade" id="sidebar-friend-links">
-    
-    <li>
-        <a href="http://kdays.net/days/" target="_blank">KDays Forum</a>
     </li>
-    
-    <li>
-        <a href="http://www.gal123.com/" target="_blank">绅士导航♂</a>
-    </li>
-    
-    <li>
-        <a href="http://www.moe123.com/" target="_blank">萌导航</a>
-    </li>
-    
-</div>
-                
-                
-                <div class="links tab-pane nav bs-sidenav fade" id="sidebar-links">
-    
-    <li>
-        <a href="https://github.com/HaxiSnake/" target="_blank">Github</a>
-    </li>
-    
-    <li>
-        <a href="" target="_blank">Coding</a>
-    </li>
-    
-    <li>
-        <a href="" target="_blank">知乎</a>
-    </li>
-    
-</div>
-                
-            </div>
-        </div>
-    </aside>
-    
-</aside>
-            </div>
-        </div>
-    </div>
-    <footer id="gal-footer">
-    <div class="container">
-        Copyright © 2018 HaxiSnake Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+  
+</ul>
+
+
+
+            <footer>
+    <div>© 2020 - HaxiSnake </div>
+    <div>
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a>
+        </span>
+        ,
+        <span>
+            Theme - <a href="https://github.com/nameoverflow/hexo-theme-icalm">Icalm</a>
+        </span>
     </div>
 </footer>
 
-<!-- 回到顶端 -->
-<div id="gal-gotop">
-    <i class="fa fa-angle-up"></i>
+        </div>
+    </div>
 </div>
+<script src="/js/pager/dist/singlepager.js"></script>
+<script>
+var sp = new Pager('data-pager-shell')
+
+</script>
 </body>
-<script src="/js/activate-power-mode.js"></script>
-<script>
-
-    // 配置highslide
-	hs.graphicsDir = '/js/highslide/graphics/'
-    hs.outlineType = "rounded-white";
-    hs.dimmingOpacity = 0.8;
-    hs.outlineWhileAnimating = true;
-    hs.showCredits = false;
-    hs.captionEval = "this.thumb.alt";
-    hs.numberPosition = "caption";
-    hs.align = "center";
-    hs.transitions = ["expand", "crossfade"];
-    hs.lang.number = '共%2张图, 当前是第%1张';
-    hs.addSlideshow({
-      interval: 5000,
-      repeat: true,
-      useControls: true,
-      fixedControls: "fit",
-      overlayOptions: {
-        opacity: 0.75,
-        position: "bottom center",
-        hideOnMouseOut: true
-      }
-    })
-
-    // 初始化aos
-    AOS.init({
-      duration: 1000,
-      delay: 0,
-      easing: 'ease-out-back'
-    });
-
-</script>
-<script>
-	POWERMODE.colorful = 'true';    // make power mode colorful
-	POWERMODE.shake = 'true';       // turn off shake
-	// TODO 这里根据具体情况修改
-	document.body.addEventListener('input', POWERMODE);
-</script>
-<script>
-    window.slideConfig = {
-      prefix: '/imgs/slide/background',
-      ext: 'jpg',
-      maxCount: '10'
-    }
-</script>
-<script src="/js/hs.js"></script>
-<script src="/js/blog.js"></script>
-
-
-
 </html>

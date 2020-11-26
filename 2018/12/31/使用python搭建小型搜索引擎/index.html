@@ -1,257 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cmn-Hans">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="author" content="HaxiSnake">
-    
-    
-    
-    
-    
-    
-    <title>使用python搭建小型搜索引擎 | 奇点的猪</title>
-    <link href=”https://haxisnake.github.io“ rel=”prefetch” />
-
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/aos.css">
-<link rel="stylesheet" href="/css/style.css">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/aos.js"></script>
-    <script src="/js/highslide/highslide-full.min.js"></script>
-    <link rel="stylesheet" href="/js/highslide/highslide.css">
-    <style type="text/css">
-        @media (max-width: 768px) {
-            body {
-                background-color: #f0f0f0;
-                background: url('/imgs/xsbg.gif');
-                background-attachment: fixed;
-            }
-        }
-    </style>
-    
-    <!--<script type="text/javascript">
-      if (document.images) {
-        var avatar = new Image();
-        avatar.src = '/imgs/head/2.jpeg'
-        var previews = 'preview1.png,preview2.jpg,preview3.jpg,preview4.png,preview5.jpg'.split(',')
-        var previewsPreLoad = []
-        for(var i = 0; i < length; i++) {
-          previewsPreLoad.push(new Image())
-          previewsPreLoad[previewsPreLoad.length - 1].src = '/imgs/preview' + previews[i]
-        }
-      }
-    </script>-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>使用python搭建小型搜索引擎 | 九五之猪</title>
+  
+  
+  
+  <!--link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css"-->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-    <!-- 背景轮播图功能 -->
-    <section class="hidden-xs">
-    <ul class="cb-slideshow">
-        <li><span>天若</span></li>
-        <li><span>有情</span></li>
-        <li><span>天亦老</span></li>
-        <li><span>我为</span></li>
-        <li><span>长者</span></li>
-        <li><span>续一秒</span></li>
-    </ul>
-</section>
-    <!-- 欧尼酱功能, 谁用谁知道 -->
-    
-    <header class="navbar navbar-inverse" id="gal-header">
+<div class="Shell">
+    <aside class='SideBar'>
+    <section class='avatar' style="background-image: url(/assets/header.png)">
+        <div class='av-pic' style="background-image: url(/assets/pig.jpg)">
+        </div>
+    </section>
+    <section class='menu'>
+        <div>九五之猪</div>
+        
+        <ul>
+          
+            <a href="/" class="Btn">
+              <li>Home</li>
+            </a>  
+          
+            <a href="/archives/" class="Btn">
+              <li>Archive</li>
+            </a>  
+          
+            <a href="/tags/" class="Btn">
+              <li>Tags</li>
+            </a>  
+          
+            <a href="/categories/" class="Btn">
+              <li>Categories</li>
+            </a>  
+          
+            <a href="/about/" class="Btn">
+              <li>About</li>
+            </a>  
+          
+        </ul>
+    </section>
+    <section class="media">
+        
+            
+                <a href="https://github.com/haxisnake">
+                    <img src="/assets/github.svg" />
+                </a>
+            
+        
+    </section>
+</aside>
+
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse" data-target=".bs-navbar-collapse"
-                    aria-expanded="false">
-                <span class="fa fa-lg fa-reorder"></span>
-            </button>
-            <a href="https://haxisnake.github.io">
-                
-                <style>
-                    #gal-header .navbar-brand {
-                        height: 54px;
-                        line-height: 24px;
-                        font-size: 28px;
-                        opacity: 1;
-                        background-color: rgba(0,0,0,0);
-                        text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 15px #fff,0 0 20px #228DFF,0 0 35px #228DFF,0 0 40px #228DFF,0 0 50px #228DFF,0 0 75px #228DFF;
-                    }
-                </style>
-                <!-- 这里使用文字(navbar_text or config.title) -->
-                <div class="navbar-brand">HaxiSnake</div>
-                
-            </a>
-        </div>
-        <div class="collapse navbar-collapse bs-navbar-collapse">
-            <ul class="nav navbar-nav" id="menu-gal">
-                
-                
-                <li class="">
-                    <a href="/">
-                        <i class="fa fa-home"></i>首页
-                    </a>
-                </li>
-                
-                
-                
-                <li class="">
-                    <a href="/archives">
-                        <i class="fa fa-archive"></i>归档
-                    </a>
-                </li>
-                
-                
-                
-                
-                <li class="dropdown">
-                    <!-- TODO 添加hover dropdown效果 -->
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
-                        <i class="fa fa-list"></i>分类
-                    </a>
-                    <ul class="dropdown-menu">
-                        
-                        
-                        <li>
-                            <a href="/categories/调试记录/">调试记录</a>
-                        </li>
-                        
-                        <li>
-                            <a href="/categories/项目总结/">项目总结</a>
-                        </li>
-                        
-                        
-                        
-                    </ul>
-                </li>
-                
-                
-                
-                
-                
-                <li class="dropdown">
-                    <!-- TODO 添加hover dropdown效果 -->
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
-                        <i class="fa fa-tags"></i>标签
-                    </a>
-                    <ul class="dropdown-menu">
-                        
-                        
-                        <li>
-                            <a href="/tags/bug/">bug</a>
-                        </li>
-                        
-                        <li>
-                            <a href="/tags/c/">c++</a>
-                        </li>
-                        
-                        <li>
-                            <a href="/tags/数据结构/">数据结构</a>
-                        </li>
-                        
-                        
-                        <li>
-                            <a href="/tags">...</a>
-                        </li>
-                        
-                        
-                    </ul>
-                </li>
-                
-                
-                
-                
-                <li class="">
-                    <a href="/about">
-                        <i class="fa fa-user"></i>关于我
-                    </a>
-                </li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</header>
-    <div id="gal-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 gal-right" id="mainstay">
-                    
-<article class="article well article-body" id="article">
-    <div class="breadcrumb">
-        <i class="fa fa-home"></i>
-        <a href="https://haxisnake.github.io">奇点的猪</a>
-        >
-        <span>使用python搭建小型搜索引擎</span>
-    </div>
-    <!-- 大型设备详细文章 -->
-    <div class="hidden-xs">
-        <div class="title-article">
-            <h1>
-                <a href="/2018/12/31/使用python搭建小型搜索引擎/">使用python搭建小型搜索引擎</a>
-            </h1>
-        </div>
-        <div class="tag-article">
-            
-            <span class="label label-gal">
-                <i class="fa fa-tags"></i>
-                
-                <a href="/tags/Python/">Python</a>, 
-                
-                <a href="/tags/Scrapy/">Scrapy</a>, 
-                
-                <a href="/tags/Django/">Django</a>, 
-                
-                <a href="/tags/Haystack/">Haystack</a>, 
-                
-                <a href="/tags/Whoosh/">Whoosh</a>, 
-                
-                <a href="/tags/Jieba/">Jieba</a>
-                
-            </span>
-            
-            <span class="label label-gal">
-                <i class="fa fa-calendar"></i> 2018-12-31
-            </span>
-            
-        </div>
-    </div>
-    <!-- 小型设备详细文章 -->
-    <div class="visible-xs">
-        <center>
-            <div class="title-article">
-                <h4>
-                    <a href="/2018/12/31/使用python搭建小型搜索引擎/">使用python搭建小型搜索引擎</a>
-                </h4>
-            </div>
-            <p>
-                <i class="fa fa-calendar"></i> 2018-12-31
-            </p>
-            <p>
-                
-                <i class="fa fa-tags"></i>
-                
-                <a href="/tags/Python/">Python</a>, 
-                
-                <a href="/tags/Scrapy/">Scrapy</a>, 
-                
-                <a href="/tags/Django/">Django</a>, 
-                
-                <a href="/tags/Haystack/">Haystack</a>, 
-                
-                <a href="/tags/Whoosh/">Whoosh</a>, 
-                
-                <a href="/tags/Jieba/">Jieba</a>
-                
-                
-                
-            </p>
-        </center>
-    </div>
-    <div class="content-article">
-        <p><a href="https://github.com/HaxiSnake/EXERCISE/tree/master/others/homework/MessageRetrieval/SearchEngine" target="_blank" rel="noopener">项目代码链接</a></p>
+        <div data-pager-shell>
+            <div>
+  <article class='ContentView'>
+    <header class='PageTitle'>
+        <h1>使用python搭建小型搜索引擎</h1>
+    </header>
+
+    <section>
+      <p><a href="https://github.com/HaxiSnake/EXERCISE/tree/master/others/homework/MessageRetrieval/SearchEngine" target="_blank" rel="noopener">项目代码链接</a></p>
 <h1 id="一、目标"><a href="#一、目标" class="headerlink" title="一、目标"></a>一、目标</h1><p>为准备信息检索课程的期末大作业，因此我使用python搭建了一个小型的搜索引擎，其功能是检索<a href="http://news.dlut.edu.cn/" target="_blank" rel="noopener">大工新闻网</a>的新闻。</p>
 <h1 id="二、原理和工具简介"><a href="#二、原理和工具简介" class="headerlink" title="二、原理和工具简介"></a>二、原理和工具简介</h1><h2 id="2-1-原理"><a href="#2-1-原理" class="headerlink" title="2.1 原理"></a>2.1 原理</h2><p>该搜索引擎的原理是采用scrapy对大工新闻网进行爬虫，提取出文字新闻，并将新闻内容存入数据库A，再利用Django框架搭建一个搜索服务器，在服务器上部署Haystack+Whoosh搜索引擎，使用jieba分词工具来进行中文分词和停用词过滤。通过搜索引擎工具建立索引文件后，在前端完成用户交互界面，实现一个完整的小型搜索引擎。</p>
 <h2 id="2-2-工具简介"><a href="#2-2-工具简介" class="headerlink" title="2.2 工具简介"></a>2.2 工具简介</h2><ul>
@@ -302,362 +118,84 @@
 <pre><code><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">'get'</span> <span class="attr">action</span>=<span class="string">"/search/"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"q"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"查询"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </code></pre><p>首页如下图所示：<br><img src="/2018/12/31/使用python搭建小型搜索引擎/query.jpg" title="image"></p>
 <p>查询结果页html关键代码：</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;% load highlight %&#125;</span><br><span class="line">&lt;h3&gt;搜索&amp;nbsp;&lt;b&gt;&#123;&#123;query&#125;&#125;&lt;/b&gt;&amp;nbsp;结果如下：&lt;/h3&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">&#123;%for item in page%&#125;</span><br><span class="line">    &lt;li&gt;&#123;&#123;item.object.title|safe&#125;&#125;&lt;/li&gt;</span><br><span class="line">    &lt;p&gt;&#123;% highlight item.object.content with query %&#125;&lt;/p&gt;</span><br><span class="line">    &lt;a href=&quot;&#123;&#123;item.object.arturl&#125;&#125;&quot;&gt;&#123;&#123;item.object.arturl&#125;&#125;&lt;/a&gt;</span><br><span class="line">&#123;%empty%&#125;</span><br><span class="line">    &lt;li&gt;啥也没找到&lt;/li&gt;</span><br><span class="line">&#123;%endfor%&#125;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;hr&gt;</span><br><span class="line">&#123;%for pindex in page.paginator.page_range%&#125;</span><br><span class="line">    &#123;%if pindex == page.number%&#125;</span><br><span class="line">        &#123;&#123;pindex&#125;&#125;&amp;nbsp;&amp;nbsp;</span><br><span class="line">    &#123;%else%&#125;</span><br><span class="line">        &lt;a href=&quot;?q=&#123;&#123;query&#125;&#125;&amp;amp;page=&#123;&#123;pindex&#125;&#125;&quot;&gt;&#123;&#123;pindex&#125;&#125;&lt;/a&gt;&amp;nbsp;&amp;nbsp;</span><br><span class="line">    &#123;%endif%&#125;</span><br><span class="line">&#123;%endfor%&#125;</span><br></pre></td></tr></table></figure>
-</code></pre><p>其中使用</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% load highlight %&#125;</span><br><span class="line">&lt;p&gt;&#123;% highlight item.object.content with query %&#125;&lt;/p&gt;</span><br></pre></td></tr></table></figure>
-</code></pre><p>进行搜索结果的高亮显示</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;% load highlight %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>搜索&amp;nbsp;<span class="tag">&lt;<span class="name">b</span>&gt;</span>&#123;&#123;query&#125;&#125;<span class="tag">&lt;/<span class="name">b</span>&gt;</span>&amp;nbsp;结果如下：<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">&#123;%for item in page%&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;item.object.title|safe&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;% highlight item.object.content with query %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;item.object.arturl&#125;&#125;"</span>&gt;</span>&#123;&#123;item.object.arturl&#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">&#123;%empty%&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>啥也没找到<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">&#123;%endfor%&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">&#123;%for pindex in page.paginator.page_range%&#125;</span><br><span class="line">    &#123;%if pindex == page.number%&#125;</span><br><span class="line">        &#123;&#123;pindex&#125;&#125;&amp;nbsp;&amp;nbsp;</span><br><span class="line">    &#123;%else%&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"?q=&#123;&#123;query&#125;&#125;&amp;amp;page=&#123;&#123;pindex&#125;&#125;"</span>&gt;</span>&#123;&#123;pindex&#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span>&amp;nbsp;&amp;nbsp;</span><br><span class="line">    &#123;%endif%&#125;</span><br><span class="line">&#123;%endfor%&#125;</span><br></pre></td></tr></table></figure>
+<p>其中使用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% load highlight %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;% highlight item.object.content with query %&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>进行搜索结果的高亮显示</p>
 <p>最终搜索页面如下图所示：</p>
 <img src="/2018/12/31/使用python搭建小型搜索引擎/search.jpg" title="image">
 <h1 id="五、项目代码"><a href="#五、项目代码" class="headerlink" title="五、项目代码"></a>五、项目代码</h1><p><a href="https://github.com/HaxiSnake/EXERCISE/tree/master/homework/MessageRetrieval/SearchEngine" target="_blank" rel="noopener">代码链接</a></p>
 
-    </div>
+
+      
+
+    </section>
+    
+      <section class='ArticleMeta'>
+          <div>
+            发布于&nbsp;
+            <time datetime="2018-12-31T05:19:06.000Z" itemprop="datePublished">
+              2018-12-31
+            </time>
+          </div>
+          
+            <div>
+              tags: 
+  <li class="meta-text">
+  { <a href="/tags/Django/">Django</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/Python/">Python</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/Scrapy/">Scrapy</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/Haystack/">Haystack</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/Whoosh/">Whoosh</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/Jieba/">Jieba</a> }
+  </li>
+
+
+            </div>
+          
+      </section>
+    
+    
 </article>
 
+  
+</div>
 
-                </div>
-                <aside class="col-md-4 gal-left" id="sidebar">
-    <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
-<aside id="sidebar-search">
-    <div class="search hidden-xs" data-aos="fade-up" data-aos-duration="2000">
-        <form class="form-inline clearfix" id="search-form" method="get"
-              action="/search/index.html">
-            <input type="text" name="s" class="form-control" id="searchInput" placeholder="搜索文章~" autocomplete="off">
-            <button class="btn btn-danger btn-gal" type="submit">
-                <i class="fa fa-search"></i>
-            </button>
-        </form>
-    </div>
-</aside>
-    <aside id="sidebar-author">
-    <div class="panel panel-gal" data-aos="flip-right" data-aos-duration="3000">
-        <div class="panel-heading" style="text-align: center">
-            <i class="fa fa-quote-left"></i>
-            HaxiSnake
-            <i class="fa fa-quote-right"></i>
-        </div>
-        <div class="author-panel text-center">
-            <img src="/imgs/head/2.jpeg" width="140" height="140"
-                 alt="个人头像" class="author-image">
-            <p class="author-description"></p>
-        </div>
-    </div>
-</aside>
-    
-    <!-- 要配置好leancloud才能开启此小工具 -->
-    
-    
-    <aside id="sidebar-recent_posts">
-    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
-        <div class="panel-heading">
-            <i class="fa fa-refresh"></i>
-            近期文章
-            <i class="fa fa-times-circle panel-remove"></i>
-            <i class="fa fa-chevron-circle-up panel-toggle"></i>
-        </div>
-        <ul class="list-group list-group-flush">
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/10/25/二叉树的遍历方法总结/">二叉树的遍历方法总结</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/10/09/django文档学习笔记/">django文档学习笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/08/12/后台开发核心技术与应用实践-读书笔记/">后台开发核心技术与应用实践-读书笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/06/06/化学品预测毒理学平台后台搭建笔记/">化学品预测毒理学平台后台搭建笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/05/29/设置linux开机启动脚本自动联网认证/">设置linux开机启动脚本自动联网认证</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/05/07/服务器环境搭建ubuntu18-04-server-cuda10-1-cudann/">服务器环境搭建</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/04/09/OpenPose环境搭建笔记/">OpenPose环境搭建笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/03/26/智能教室项目记录/">智能教室项目记录</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/02/18/docker无法启动问题调试/">docker无法启动问题调试</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/01/14/C-vector-size-与有符号数比较要注意的问题/">C++ vector size()与有符号数比较要注意的问题</a>
-                </span>
-            </li>
-            
-        </ul>
-    </div>
-</aside>
-    
-    
-    <aside id="sidebar-rand_posts">
-    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
-        <div class="panel-heading">
-            <i class="fa fa-refresh"></i>
-            随机文章
-            <i class="fa fa-times-circle panel-remove"></i>
-            <i class="fa fa-chevron-circle-up panel-toggle"></i>
-        </div>
-        <ul class="list-group list-group-flush">
-            
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/01/14/C-vector-size-与有符号数比较要注意的问题/">C++ vector size()与有符号数比较要注意的问题</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/02/18/docker无法启动问题调试/">docker无法启动问题调试</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/10/09/django文档学习笔记/">django文档学习笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2018/07/17/opencv3-ubuntu16-04-install/">opencv3-ubuntu16.04-install</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/08/12/后台开发核心技术与应用实践-读书笔记/">后台开发核心技术与应用实践-读书笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/04/09/OpenPose环境搭建笔记/">OpenPose环境搭建笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2018/12/31/使用python搭建小型搜索引擎/">使用python搭建小型搜索引擎</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/03/26/智能教室项目记录/">智能教室项目记录</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/05/29/设置linux开机启动脚本自动联网认证/">设置linux开机启动脚本自动联网认证</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/10/25/二叉树的遍历方法总结/">二叉树的遍历方法总结</a>
-                </span>
-            </li>
-            
-        </ul>
-    </div>
-</aside>
-    
-    
-    <aside id="gal-sets">
-        <div class="panel panel-gal hidden-xs" data-aos="fade-up" data-aos-duration="2000">
-            <ul class="nav nav-pills pills-gal">
-
-                
-                <li>
-                    <a href="/2018/12/31/使用python搭建小型搜索引擎/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
-                </li>
-                
-                
-                <li>
-                    <a href="/2018/12/31/使用python搭建小型搜索引擎/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
-                </li>
-                
-                
-                <li>
-                    <a href="/2018/12/31/使用python搭建小型搜索引擎/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
-                </li>
-                
-            </ul>
-            <div class="tab-content">
-                
-                <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
-    
-    <a href="/tags/bug/" style="font-size: 11.120176178920765px;" class="tag-cloud-link">bug</a>
-    
-    <a href="/tags/c/" style="font-size: 10.039094158959951px;" class="tag-cloud-link">c++</a>
-    
-    <a href="/tags/数据结构/" style="font-size: 12.824028694368781px;" class="tag-cloud-link">数据结构</a>
-    
-    <a href="/tags/环境搭建/" style="font-size: 15.976666880293553px;" class="tag-cloud-link">环境搭建</a>
-    
-    <a href="/tags/opencv3/" style="font-size: 10.552598852937331px;" class="tag-cloud-link">opencv3</a>
-    
-    <a href="/tags/Python/" style="font-size: 18.42653923947523px;" class="tag-cloud-link">Python</a>
-    
-    <a href="/tags/Scrapy/" style="font-size: 8.201349275316517px;" class="tag-cloud-link">Scrapy</a>
-    
-    <a href="/tags/Django/" style="font-size: 11.435483908489427px;" class="tag-cloud-link">Django</a>
-    
-    <a href="/tags/Haystack/" style="font-size: 16.986530963042235px;" class="tag-cloud-link">Haystack</a>
-    
-    <a href="/tags/Whoosh/" style="font-size: 16.690045711993353px;" class="tag-cloud-link">Whoosh</a>
-    
-    <a href="/tags/Jieba/" style="font-size: 13.861112351721207px;" class="tag-cloud-link">Jieba</a>
-    
-    <a href="/tags/服务器维护/" style="font-size: 9.319261436684933px;" class="tag-cloud-link">服务器维护</a>
-    
-    <a href="/tags/raspberry3B/" style="font-size: 17.60531971922679px;" class="tag-cloud-link">raspberry3B</a>
-    
-    <a href="/tags/ROS/" style="font-size: 18.930593011585934px;" class="tag-cloud-link">ROS</a>
-    
-    <a href="/tags/turtlebot3/" style="font-size: 18.4061623874886px;" class="tag-cloud-link">turtlebot3</a>
-    
-    <a href="/tags/raspberry3B/" style="font-size: 11.334923086964006px;" class="tag-cloud-link">raspberry3B+</a>
-    
-</div>
-                
-                
-                <div class="friend-links tab-pane nav bs-sidenav fade" id="sidebar-friend-links">
-    
-    <li>
-        <a href="http://kdays.net/days/" target="_blank">KDays Forum</a>
-    </li>
-    
-    <li>
-        <a href="http://www.gal123.com/" target="_blank">绅士导航♂</a>
-    </li>
-    
-    <li>
-        <a href="http://www.moe123.com/" target="_blank">萌导航</a>
-    </li>
-    
-</div>
-                
-                
-                <div class="links tab-pane nav bs-sidenav fade" id="sidebar-links">
-    
-    <li>
-        <a href="https://github.com/HaxiSnake/" target="_blank">Github</a>
-    </li>
-    
-    <li>
-        <a href="" target="_blank">Coding</a>
-    </li>
-    
-    <li>
-        <a href="" target="_blank">知乎</a>
-    </li>
-    
-</div>
-                
-            </div>
-        </div>
-    </aside>
-    
-</aside>
-            </div>
-        </div>
-    </div>
-    <footer id="gal-footer">
-    <div class="container">
-        Copyright © 2018 HaxiSnake Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+            <footer>
+    <div>© 2020 - HaxiSnake </div>
+    <div>
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a>
+        </span>
+        ,
+        <span>
+            Theme - <a href="https://github.com/nameoverflow/hexo-theme-icalm">Icalm</a>
+        </span>
     </div>
 </footer>
 
-<!-- 回到顶端 -->
-<div id="gal-gotop">
-    <i class="fa fa-angle-up"></i>
+        </div>
+    </div>
 </div>
+<script src="/js/pager/dist/singlepager.js"></script>
+<script>
+var sp = new Pager('data-pager-shell')
+
+</script>
 </body>
-<script src="/js/activate-power-mode.js"></script>
-<script>
-
-    // 配置highslide
-	hs.graphicsDir = '/js/highslide/graphics/'
-    hs.outlineType = "rounded-white";
-    hs.dimmingOpacity = 0.8;
-    hs.outlineWhileAnimating = true;
-    hs.showCredits = false;
-    hs.captionEval = "this.thumb.alt";
-    hs.numberPosition = "caption";
-    hs.align = "center";
-    hs.transitions = ["expand", "crossfade"];
-    hs.lang.number = '共%2张图, 当前是第%1张';
-    hs.addSlideshow({
-      interval: 5000,
-      repeat: true,
-      useControls: true,
-      fixedControls: "fit",
-      overlayOptions: {
-        opacity: 0.75,
-        position: "bottom center",
-        hideOnMouseOut: true
-      }
-    })
-
-    // 初始化aos
-    AOS.init({
-      duration: 1000,
-      delay: 0,
-      easing: 'ease-out-back'
-    });
-
-</script>
-<script>
-	POWERMODE.colorful = 'true';    // make power mode colorful
-	POWERMODE.shake = 'true';       // turn off shake
-	// TODO 这里根据具体情况修改
-	document.body.addEventListener('input', POWERMODE);
-</script>
-<script>
-    window.slideConfig = {
-      prefix: '/imgs/slide/background',
-      ext: 'jpg',
-      maxCount: '10'
-    }
-</script>
-<script src="/js/hs.js"></script>
-<script src="/js/blog.js"></script>
-
-
-
 </html>

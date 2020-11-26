@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TIDB源码学习笔记-Key编码后的比较 | 九五之猪</title>
+  
+  
+  
+  <!--link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css"-->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<div class="Shell">
+    <aside class='SideBar'>
+    <section class='avatar' style="background-image: url(/assets/header.png)">
+        <div class='av-pic' style="background-image: url(/assets/pig.jpg)">
+        </div>
+    </section>
+    <section class='menu'>
+        <div>九五之猪</div>
+        
+        <ul>
+          
+            <a href="/" class="Btn">
+              <li>Home</li>
+            </a>  
+          
+            <a href="/archives/" class="Btn">
+              <li>Archive</li>
+            </a>  
+          
+            <a href="/tags/" class="Btn">
+              <li>Tags</li>
+            </a>  
+          
+            <a href="/categories/" class="Btn">
+              <li>Categories</li>
+            </a>  
+          
+            <a href="/about/" class="Btn">
+              <li>About</li>
+            </a>  
+          
+        </ul>
+    </section>
+    <section class="media">
+        
+            
+                <a href="https://github.com/haxisnake">
+                    <img src="/assets/github.svg" />
+                </a>
+            
+        
+    </section>
+</aside>
+
+    <div class="container">
+        <div data-pager-shell>
+            <div>
+  <article class='ContentView'>
+    <header class='PageTitle'>
+        <h1>TIDB源码学习笔记-Key编码后的比较</h1>
+    </header>
+
+    <section>
+      <p>key经过编码之后是字节数组，两个字节数组的比较方案如下所示：</p>
+<p>判断两个字节数组的地址是否一样，如果一样则说明在同一段内存存储，直接判断长度，长度小的key编码较小。</p>
+<p>如果首地址不一样，则按照两个数组的较小长度逐个元素比较，如有不同直接按照元素大小返回。</p>
+<p>当在较小长度内所有元素都相同，则较大长度字节数组大于较小长度数组。如果两者长度相同且所有元素相同，则数组大小相同。</p>
+<h2 id="example"><a href="#example" class="headerlink" title="example"></a>example</h2><p>例如有如下两个表：</p>
+<p>table1, tableId为1, 第三列value含有索引，indexID为1<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rowid, name,        role, value</span><br><span class="line"><span class="number">1</span>,   <span class="string">"TiDB"</span>, <span class="string">"SQL Layer"</span>, <span class="number">10</span></span><br><span class="line"><span class="number">2</span>,   <span class="string">"TiKV"</span>, <span class="string">"KV Engine"</span>, <span class="number">20</span></span><br><span class="line"><span class="number">3</span>,     <span class="string">"PD"</span>,   <span class="string">"Manager"</span>, <span class="number">30</span></span><br></pre></td></tr></table></figure></p>
+<p>table2, tableId为2, 第二列到第四列都含有索引，indexID从1到4<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rowid,   name, school, age, graduate date, personID(unique)</span><br><span class="line"><span class="number">1</span>, <span class="string">"XiaoMing"</span>, <span class="string">"A"</span>,     <span class="number">19</span>,    <span class="number">2020</span><span class="number">-06</span><span class="number">-20</span>, <span class="number">210283</span></span><br><span class="line"><span class="number">2</span>, <span class="string">"XiaoHong"</span>, <span class="string">"C"</span>,     <span class="number">19</span>,    <span class="number">2019</span><span class="number">-03</span><span class="number">-20</span>, <span class="number">270447</span></span><br><span class="line"><span class="number">3</span>, <span class="string">"XiaoWang"</span>, <span class="string">"B"</span>,     <span class="number">18</span>,    <span class="number">2018</span><span class="number">-07</span><span class="number">-01</span>, <span class="number">159668</span></span><br></pre></td></tr></table></figure></p>
+<p>则其在Tikv中排布情况如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">t1_i1_intFlag&#123;<span class="number">10</span>&#125;_1 --&gt; null</span><br><span class="line">t1_i1_intFlag&#123;<span class="number">20</span>&#125;_2 --&gt; null</span><br><span class="line">t1_i1_intFlag&#123;<span class="number">30</span>&#125;_3 --&gt; null</span><br><span class="line">t1_r1 --&gt; [<span class="string">"TiDB"</span>, <span class="string">"SQL Layer"</span>, <span class="number">10</span>]</span><br><span class="line">t1_r2 --&gt; [<span class="string">"TiKV"</span>, <span class="string">"KV Engine"</span>, <span class="number">20</span>] </span><br><span class="line">t1_r3 --&gt; [<span class="string">"PD"</span>, <span class="string">"Manager"</span>, <span class="number">30</span>]</span><br><span class="line">t2_i1_bytesFlag&#123;A&#125;_1 --&gt; null</span><br><span class="line">t2_i1_bytesFlag&#123;B&#125;_3 --&gt; null</span><br><span class="line">t2_i1_bytesFlag&#123;C&#125;_2 --&gt; null</span><br><span class="line">t2_i2_uintFlag&#123;<span class="number">18</span>&#125;_3 --&gt; null</span><br><span class="line">t2_i2_uintFlag&#123;<span class="number">19</span>&#125;_1 --&gt; null</span><br><span class="line">t2_i2_uintFlag&#123;<span class="number">19</span>&#125;_2 --&gt; null</span><br><span class="line">t2_i3_uintFlag&#123;<span class="number">2018</span><span class="number">-07</span><span class="number">-01</span>&#125;_3 --&gt; null</span><br><span class="line">t2_i3_uintFlag&#123;<span class="number">2019</span><span class="number">-03</span><span class="number">-20</span>&#125;_2 --&gt; null</span><br><span class="line">t2_i3_uintFlag&#123;<span class="number">2020</span><span class="number">-06</span><span class="number">-20</span>&#125;_1 --&gt; null</span><br><span class="line">t2_i4_uintFlag&#123;<span class="number">159668</span>&#125; --&gt; <span class="number">3</span></span><br><span class="line">t2_i4_uintFlag&#123;<span class="number">210283</span>&#125; --&gt; <span class="number">1</span></span><br><span class="line">t2_i4_uintFlag&#123;<span class="number">270447</span>&#125; --&gt; <span class="number">2</span></span><br><span class="line">t2_r1 --&gt; [<span class="string">"XiaoMing"</span>, <span class="string">"A"</span>, <span class="number">19</span>, <span class="number">2020</span><span class="number">-06</span><span class="number">-20</span>]</span><br><span class="line">t2_r2 --&gt; [<span class="string">"XiaoHong"</span>, <span class="string">"B"</span>, <span class="number">19</span>, <span class="number">2019</span><span class="number">-03</span><span class="number">-20</span>]</span><br><span class="line">t2_r3 --&gt; [<span class="string">"XiaoWang"</span>, <span class="string">"C"</span>, <span class="number">18</span>, <span class="number">2018</span><span class="number">-07</span><span class="number">-01</span>]</span><br></pre></td></tr></table></figure></p>
+<p>tikv是一个全局有序的分布式Key-Value引擎，因此，通过以上的设计可以让同一个表下同一个indexID的索引按照ColumnsValue分布到一段连续的区间上.这个columnsValue的编码方式主要在codec模块中。</p>
+<p>columnsValue在进行实际的编码时，会在编码开始前添加一个codeFlag，如下所示：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    NilFlag          <span class="keyword">byte</span> = <span class="number">0</span></span><br><span class="line">    bytesFlag        <span class="keyword">byte</span> = <span class="number">1</span></span><br><span class="line">    compactBytesFlag <span class="keyword">byte</span> = <span class="number">2</span></span><br><span class="line">    intFlag          <span class="keyword">byte</span> = <span class="number">3</span></span><br><span class="line">    uintFlag         <span class="keyword">byte</span> = <span class="number">4</span></span><br><span class="line">    floatFlag        <span class="keyword">byte</span> = <span class="number">5</span></span><br><span class="line">    decimalFlag      <span class="keyword">byte</span> = <span class="number">6</span></span><br><span class="line">    durationFlag     <span class="keyword">byte</span> = <span class="number">7</span></span><br><span class="line">    varintFlag       <span class="keyword">byte</span> = <span class="number">8</span></span><br><span class="line">    uvarintFlag      <span class="keyword">byte</span> = <span class="number">9</span></span><br><span class="line">    jsonFlag         <span class="keyword">byte</span> = <span class="number">10</span></span><br><span class="line">    maxFlag          <span class="keyword">byte</span> = <span class="number">250</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>按照本人目前的理解，主要有两个作用：</p>
+<ul>
+<li><p>一是用来识别不同数据类型的编码方案。比如int64 compareble就会用intFlag标记，string compareable就会用bytesFlag来标记。</p>
+</li>
+<li><p>二是方便统一不同类型对于边界值处理。在tidb中任何类型都有三个较为特殊的值，Null, MinNotNull, MaxValue.它主要用来表示一些筛选条件的range边界。这三个值的codeFlag是：</p>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Null       --&gt; NilFlag <span class="keyword">byte</span> = <span class="number">0</span></span><br><span class="line">MinNotNull --&gt; bytesFlag <span class="keyword">byte</span> = <span class="number">1</span></span><br><span class="line">MaxValue   --&gt; maxFlag <span class="keyword">byte</span> = <span class="number">250</span></span><br></pre></td></tr></table></figure>
+<p>比如 <code>select * from table1 where value &lt; 15</code> 这样一个查询， value的range就是[MinNotNull, 15). 对于这三个特殊值，并不依据具体的类型做编码，而是通过codeFlag这个字节来标识。结合key的编码比较方案，就可以实现对range边界的确定。</p>
+<p>例如</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">from</span> * <span class="keyword">from</span> table2 <span class="keyword">where</span> school &lt;= <span class="string">"B"</span> <span class="keyword">AND</span> school <span class="keyword">is</span> <span class="keyword">Not</span> <span class="literal">Null</span></span><br></pre></td></tr></table></figure>
+<p>这样一个查询, 生成的range就是:<br><code>[MaxNotNull, &quot;B&quot;]</code><br>对应到tikv中的key编码就是:<br><code>[t2_i1_bytesFlag, t2_i1_bytesFlag{B}]</code><br>而包含Null的查询:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">from</span> * <span class="keyword">from</span> table2 <span class="keyword">where</span> school &lt;= <span class="string">"B"</span></span><br></pre></td></tr></table></figure></p>
+<p>这样一个查询, 生成的range就是:<br><code>[Null, &quot;B&quot;]</code><br>对应到tikv中的key编码就是:<br><code>[t2_i1_NilFlag, t2_i1_bytesFlag{B}]</code></p>
+
+
+      
+
+    </section>
+    
+      <section class='ArticleMeta'>
+          <div>
+            发布于&nbsp;
+            <time datetime="2020-11-26T07:05:34.000Z" itemprop="datePublished">
+              2020-11-26
+            </time>
+          </div>
+          
+            <div>
+              tags: 
+  <li class="meta-text">
+  { <a href="/tags/TIDB/">TIDB</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/Golang/">Golang</a> }
+  </li>
+
+
+            </div>
+          
+      </section>
+    
+    
+</article>
+
+  
+</div>
+
+            <footer>
+    <div>© 2020 - HaxiSnake </div>
+    <div>
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a>
+        </span>
+        ,
+        <span>
+            Theme - <a href="https://github.com/nameoverflow/hexo-theme-icalm">Icalm</a>
+        </span>
+    </div>
+</footer>
+
+        </div>
+    </div>
+</div>
+<script src="/js/pager/dist/singlepager.js"></script>
+<script>
+var sp = new Pager('data-pager-shell')
+
+</script>
+</body>
+</html>

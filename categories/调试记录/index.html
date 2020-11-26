@@ -1,574 +1,290 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cmn-Hans">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="author" content="HaxiSnake">
-    
-    
-    
-    
-    
-    
-    <title>categories: 调试记录 | 奇点的猪</title>
-    <link href=”https://haxisnake.github.io“ rel=”prefetch” />
-
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/aos.css">
-<link rel="stylesheet" href="/css/style.css">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/aos.js"></script>
-    <script src="/js/highslide/highslide-full.min.js"></script>
-    <link rel="stylesheet" href="/js/highslide/highslide.css">
-    <style type="text/css">
-        @media (max-width: 768px) {
-            body {
-                background-color: #f0f0f0;
-                background: url('/imgs/xsbg.gif');
-                background-attachment: fixed;
-            }
-        }
-    </style>
-    
-    <!--<script type="text/javascript">
-      if (document.images) {
-        var avatar = new Image();
-        avatar.src = '/imgs/head/2.jpeg'
-        var previews = 'preview1.png,preview2.jpg,preview3.jpg,preview4.png,preview5.jpg'.split(',')
-        var previewsPreLoad = []
-        for(var i = 0; i < length; i++) {
-          previewsPreLoad.push(new Image())
-          previewsPreLoad[previewsPreLoad.length - 1].src = '/imgs/preview' + previews[i]
-        }
-      }
-    </script>-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>九五之猪</title>
+  
+  
+  
+  <!--link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css"-->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-    <!-- 背景轮播图功能 -->
-    <section class="hidden-xs">
-    <ul class="cb-slideshow">
-        <li><span>天若</span></li>
-        <li><span>有情</span></li>
-        <li><span>天亦老</span></li>
-        <li><span>我为</span></li>
-        <li><span>长者</span></li>
-        <li><span>续一秒</span></li>
-    </ul>
-</section>
-    <!-- 欧尼酱功能, 谁用谁知道 -->
-    
-    <header class="navbar navbar-inverse" id="gal-header">
+<div class="Shell">
+    <aside class='SideBar'>
+    <section class='avatar' style="background-image: url(/assets/header.png)">
+        <div class='av-pic' style="background-image: url(/assets/pig.jpg)">
+        </div>
+    </section>
+    <section class='menu'>
+        <div>九五之猪</div>
+        
+        <ul>
+          
+            <a href="/" class="Btn">
+              <li>Home</li>
+            </a>  
+          
+            <a href="/archives/" class="Btn">
+              <li>Archive</li>
+            </a>  
+          
+            <a href="/tags/" class="Btn">
+              <li>Tags</li>
+            </a>  
+          
+            <a href="/categories/" class="Btn">
+              <li>Categories</li>
+            </a>  
+          
+            <a href="/about/" class="Btn">
+              <li>About</li>
+            </a>  
+          
+        </ul>
+    </section>
+    <section class="media">
+        
+            
+                <a href="https://github.com/haxisnake">
+                    <img src="/assets/github.svg" />
+                </a>
+            
+        
+    </section>
+</aside>
+
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse" data-target=".bs-navbar-collapse"
-                    aria-expanded="false">
-                <span class="fa fa-lg fa-reorder"></span>
-            </button>
-            <a href="https://haxisnake.github.io">
-                
-                <style>
-                    #gal-header .navbar-brand {
-                        height: 54px;
-                        line-height: 24px;
-                        font-size: 28px;
-                        opacity: 1;
-                        background-color: rgba(0,0,0,0);
-                        text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 15px #fff,0 0 20px #228DFF,0 0 35px #228DFF,0 0 40px #228DFF,0 0 50px #228DFF,0 0 75px #228DFF;
-                    }
-                </style>
-                <!-- 这里使用文字(navbar_text or config.title) -->
-                <div class="navbar-brand">HaxiSnake</div>
-                
-            </a>
-        </div>
-        <div class="collapse navbar-collapse bs-navbar-collapse">
-            <ul class="nav navbar-nav" id="menu-gal">
-                
-                
-                <li class="">
-                    <a href="/">
-                        <i class="fa fa-home"></i>首页
-                    </a>
-                </li>
-                
-                
-                
-                <li class="">
-                    <a href="/archives">
-                        <i class="fa fa-archive"></i>归档
-                    </a>
-                </li>
-                
-                
-                
-                
-                <li class="dropdown">
-                    <!-- TODO 添加hover dropdown效果 -->
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
-                        <i class="fa fa-list"></i>分类
-                    </a>
-                    <ul class="dropdown-menu">
-                        
-                        
-                        <li>
-                            <a href="/categories/调试记录/">调试记录</a>
-                        </li>
-                        
-                        <li>
-                            <a href="/categories/项目总结/">项目总结</a>
-                        </li>
-                        
-                        
-                        
-                    </ul>
-                </li>
-                
-                
-                
-                
-                
-                <li class="dropdown">
-                    <!-- TODO 添加hover dropdown效果 -->
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
-                        <i class="fa fa-tags"></i>标签
-                    </a>
-                    <ul class="dropdown-menu">
-                        
-                        
-                        <li>
-                            <a href="/tags/bug/">bug</a>
-                        </li>
-                        
-                        <li>
-                            <a href="/tags/c/">c++</a>
-                        </li>
-                        
-                        <li>
-                            <a href="/tags/数据结构/">数据结构</a>
-                        </li>
-                        
-                        
-                        <li>
-                            <a href="/tags">...</a>
-                        </li>
-                        
-                        
-                    </ul>
-                </li>
-                
-                
-                
-                
-                <li class="">
-                    <a href="/about">
-                        <i class="fa fa-user"></i>关于我
-                    </a>
-                </li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</header>
-    <div id="gal-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 gal-right" id="mainstay">
-                    <article class="article well article-body" id="article-category">
-    <div class="breadcrumb">
-        <i class="fa fa-home"></i>
-        <a href="https://haxisnake.github.io">奇点的猪</a>
-        >
-        <span>目录</span>
-    </div>
-    <!-- 大型设备详细文章 -->
-    <div class="hidden-xs">
-        <div class="title-article">
-            <h1>
-                <a href="/categories/调试记录/index.html">调试记录</a>
-            </h1>
-        </div>
-    </div>
-    <!-- 小型设备详细文章 -->
-    <div class="visible-xs">
-        <center>
-            <div class="title-article">
-                <h4>
-                    <a href="/categories/调试记录/index.html">调试记录</a>
-                </h4>
-            </div>
-        </center>
-    </div>
-    <div class="content-article" style="margin-top: 30px;">
-        <div class="alert alert-info" style="font-size: 14px; line-height: 2; font-weight: bold;">
-            
-            <a href="/2019/06/06/化学品预测毒理学平台后台搭建笔记/">化学品预测毒理学平台后台搭建笔记</a>
-            <br>
-            
-            <a href="/2019/01/14/C-vector-size-与有符号数比较要注意的问题/">C++ vector size()与有符号数比较要注意的问题</a>
-            <br>
-            
-            <a href="/2018/07/18/树莓派3B-turtlebot3ros开发环境搭建问题记录/">树莓派3B——turtlebot3——ROS开发环境搭建问题记录</a>
-            <br>
-            
-            <a href="/2018/07/17/opencv3-ubuntu16-04-install/">opencv3-ubuntu16.04-install</a>
-            <br>
-            
-            <a href="/2018/07/17/树莓派3B-编译安装opencv3/">树莓派3B+编译安装opencv3</a>
-            <br>
-            
-            
-        </div>
+        <div data-pager-shell>
+            <ul class="Index">
+  
+    <header class='PageTitle'>
+        <h1>{ 调试记录 }</h1>
+    </header>
+  
+  
+    <li>
+      <article class='ListView'>
+    <header class="title">
+      
+        <h1>
+          <a href="/2018/07/18/树莓派3B-turtlebot3ros开发环境搭建问题记录/">树莓派3B——turtlebot3——ROS开发环境搭建问题记录</a>
+        </h1>
+      
+      <div class='ListMeta'>
+  <time datetime="2018-07-18T05:41:27.000Z" itemprop="datePublished">
+    2018-07-18
+  </time>
+  
+  | 
+  <ul>
+    
+  <li class="meta-text">
+  { <a href="/tags/环境搭建/">环境搭建</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/raspberry3B/">raspberry3B</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/ROS/">ROS</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/turtlebot3/">turtlebot3</a> }
+  </li>
+
+
+  </ul>
+  
+  
+  / 
+  <ul>
+    
+  <li class="meta-text">
+  { <a href="/categories/调试记录/">调试记录</a> }
+  </li>
+
+
+  </ul>
+  
+</div>
+
+    </header>
+    <div>
+      
+        <img src="/2018/07/18/树莓派3B-turtlebot3ros开发环境搭建问题记录/turtlebot3.jpg" title="image">
+<p>由于一个比赛项目需要在ROS上做开发，但是按照网上教程搭建开发环境出现了一些问题，因此在此做简单整理，本笔记的开发环境如下：</p>
+<ul>
+<li>硬件环境：turtlebot3 burger(用的其自带的树莓派为raspberry3B)</li>
+<li>树莓派系统版本：ubuntu-mate-16.04.2-desktop-armhf</li>
+<li>PC系统版本： ubuntu-16.04.3-desktop-amd64</li>
+</ul>
+<p>教程参考： <a href="https://www.ncnynl.com/archives/201702/1392.html" target="_blank" rel="noopener">https://www.ncnynl.com/archives/201702/1392.html</a></p>
+<h1 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h1><h2 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h2><p>问题描述：wget 安装脚本时验证出错导致脚本无法下载</p>
+<p>解决方法：在wget命令后加上–no-check-certificate选项即可</p>
+<h2 id="问题二"><a href="#问题二" class="headerlink" title="问题二"></a>问题二</h2><p>问题描述：git clone 出现CAfile: /etc/ssl/certs/ca-certificates.crt CRLfile: none错误</p>
+<p>解决方式：运行 export GIT_SSL_NO_VERIFY=1</p>
+<h2 id="问题三"><a href="#问题三" class="headerlink" title="问题三"></a>问题三</h2><p>问题描述：安装turtlebot依赖包之后找不到catkin_make命令</p>
+<p>解决方式：<br>重新执行 source /opt/ros/kinetic/setup.sh</p>
+<h2 id="问题四"><a href="#问题四" class="headerlink" title="问题四"></a>问题四</h2><p>问题描述：cakin_make时找不到interactive_maker模块</p>
+<p>解决方式：修改安装脚本，使其安装desktop_full版本</p>
+<h2 id="问题五"><a href="#问题五" class="headerlink" title="问题五"></a>问题五</h2><p>问题描述：checksum error when launching turtlebot3_bringup</p>
+<p>解决方式：更新OpenCR固件至最新版与ROS版本相匹配</p>
+
+      
     </div>
 </article>
-                </div>
-                <aside class="col-md-4 gal-left" id="sidebar">
-    <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
-<aside id="sidebar-search">
-    <div class="search hidden-xs" data-aos="fade-up" data-aos-duration="2000">
-        <form class="form-inline clearfix" id="search-form" method="get"
-              action="/search/index.html">
-            <input type="text" name="s" class="form-control" id="searchInput" placeholder="搜索文章~" autocomplete="off">
-            <button class="btn btn-danger btn-gal" type="submit">
-                <i class="fa fa-search"></i>
-            </button>
-        </form>
-    </div>
-</aside>
-    <aside id="sidebar-author">
-    <div class="panel panel-gal" data-aos="flip-right" data-aos-duration="3000">
-        <div class="panel-heading" style="text-align: center">
-            <i class="fa fa-quote-left"></i>
-            HaxiSnake
-            <i class="fa fa-quote-right"></i>
-        </div>
-        <div class="author-panel text-center">
-            <img src="/imgs/head/2.jpeg" width="140" height="140"
-                 alt="个人头像" class="author-image">
-            <p class="author-description"></p>
-        </div>
-    </div>
-</aside>
-    
-    <!-- 要配置好leancloud才能开启此小工具 -->
-    
-    
-    <aside id="sidebar-recent_posts">
-    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
-        <div class="panel-heading">
-            <i class="fa fa-refresh"></i>
-            近期文章
-            <i class="fa fa-times-circle panel-remove"></i>
-            <i class="fa fa-chevron-circle-up panel-toggle"></i>
-        </div>
-        <ul class="list-group list-group-flush">
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/10/25/二叉树的遍历方法总结/">二叉树的遍历方法总结</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/10/09/django文档学习笔记/">django文档学习笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/08/12/后台开发核心技术与应用实践-读书笔记/">后台开发核心技术与应用实践-读书笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/06/06/化学品预测毒理学平台后台搭建笔记/">化学品预测毒理学平台后台搭建笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/05/29/设置linux开机启动脚本自动联网认证/">设置linux开机启动脚本自动联网认证</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/05/07/服务器环境搭建ubuntu18-04-server-cuda10-1-cudann/">服务器环境搭建</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/04/09/OpenPose环境搭建笔记/">OpenPose环境搭建笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/03/26/智能教室项目记录/">智能教室项目记录</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/02/18/docker无法启动问题调试/">docker无法启动问题调试</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/01/14/C-vector-size-与有符号数比较要注意的问题/">C++ vector size()与有符号数比较要注意的问题</a>
-                </span>
-            </li>
-            
-        </ul>
-    </div>
-</aside>
-    
-    
-    <aside id="sidebar-rand_posts">
-    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
-        <div class="panel-heading">
-            <i class="fa fa-refresh"></i>
-            随机文章
-            <i class="fa fa-times-circle panel-remove"></i>
-            <i class="fa fa-chevron-circle-up panel-toggle"></i>
-        </div>
-        <ul class="list-group list-group-flush">
-            
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/01/14/C-vector-size-与有符号数比较要注意的问题/">C++ vector size()与有符号数比较要注意的问题</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/10/09/django文档学习笔记/">django文档学习笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2018/07/17/opencv3-ubuntu16-04-install/">opencv3-ubuntu16.04-install</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/04/09/OpenPose环境搭建笔记/">OpenPose环境搭建笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2018/12/31/使用python搭建小型搜索引擎/">使用python搭建小型搜索引擎</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/06/06/化学品预测毒理学平台后台搭建笔记/">化学品预测毒理学平台后台搭建笔记</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/03/26/智能教室项目记录/">智能教室项目记录</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/05/29/设置linux开机启动脚本自动联网认证/">设置linux开机启动脚本自动联网认证</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2018/07/18/树莓派3B-turtlebot3ros开发环境搭建问题记录/">树莓派3B——turtlebot3——ROS开发环境搭建问题记录</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2018/07/17/树莓派3B-编译安装opencv3/">树莓派3B+编译安装opencv3</a>
-                </span>
-            </li>
-            
-        </ul>
-    </div>
-</aside>
-    
-    
-    <aside id="gal-sets">
-        <div class="panel panel-gal hidden-xs" data-aos="fade-up" data-aos-duration="2000">
-            <ul class="nav nav-pills pills-gal">
 
-                
-                <li>
-                    <a href="/categories/调试记录/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
-                </li>
-                
-                
-                <li>
-                    <a href="/categories/调试记录/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
-                </li>
-                
-                
-                <li>
-                    <a href="/categories/调试记录/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
-                </li>
-                
-            </ul>
-            <div class="tab-content">
-                
-                <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
+    </li>
+  
+    <li>
+      <article class='ListView'>
+    <header class="title">
+      
+        <h1>
+          <a href="/2018/07/17/opencv3-ubuntu16-04-install/">opencv3-ubuntu16.04-install</a>
+        </h1>
+      
+      <div class='ListMeta'>
+  <time datetime="2018-07-17T11:45:44.000Z" itemprop="datePublished">
+    2018-07-17
+  </time>
+  
+  | 
+  <ul>
     
-    <a href="/tags/bug/" style="font-size: 11.10046210316538px;" class="tag-cloud-link">bug</a>
+  <li class="meta-text">
+  { <a href="/tags/环境搭建/">环境搭建</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/opencv3/">opencv3</a> }
+  </li>
+
+
+  </ul>
+  
+  
+  / 
+  <ul>
     
-    <a href="/tags/c/" style="font-size: 19.595728035026113px;" class="tag-cloud-link">c++</a>
-    
-    <a href="/tags/数据结构/" style="font-size: 8.172626521336479px;" class="tag-cloud-link">数据结构</a>
-    
-    <a href="/tags/环境搭建/" style="font-size: 17.6305326379424px;" class="tag-cloud-link">环境搭建</a>
-    
-    <a href="/tags/opencv3/" style="font-size: 11.303785572963088px;" class="tag-cloud-link">opencv3</a>
-    
-    <a href="/tags/Python/" style="font-size: 12.162817166692017px;" class="tag-cloud-link">Python</a>
-    
-    <a href="/tags/Scrapy/" style="font-size: 16.58627412034911px;" class="tag-cloud-link">Scrapy</a>
-    
-    <a href="/tags/Django/" style="font-size: 9.605931916031615px;" class="tag-cloud-link">Django</a>
-    
-    <a href="/tags/Haystack/" style="font-size: 12.11293492832904px;" class="tag-cloud-link">Haystack</a>
-    
-    <a href="/tags/Whoosh/" style="font-size: 18.36100638205832px;" class="tag-cloud-link">Whoosh</a>
-    
-    <a href="/tags/Jieba/" style="font-size: 15.63593991457159px;" class="tag-cloud-link">Jieba</a>
-    
-    <a href="/tags/服务器维护/" style="font-size: 9.030458467841907px;" class="tag-cloud-link">服务器维护</a>
-    
-    <a href="/tags/raspberry3B/" style="font-size: 16.796209011655726px;" class="tag-cloud-link">raspberry3B</a>
-    
-    <a href="/tags/ROS/" style="font-size: 15.063777066460222px;" class="tag-cloud-link">ROS</a>
-    
-    <a href="/tags/turtlebot3/" style="font-size: 15.714466278803961px;" class="tag-cloud-link">turtlebot3</a>
-    
-    <a href="/tags/raspberry3B/" style="font-size: 10.022744847866822px;" class="tag-cloud-link">raspberry3B+</a>
-    
+  <li class="meta-text">
+  { <a href="/categories/调试记录/">调试记录</a> }
+  </li>
+
+
+  </ul>
+  
 </div>
-                
-                
-                <div class="friend-links tab-pane nav bs-sidenav fade" id="sidebar-friend-links">
-    
-    <li>
-        <a href="http://kdays.net/days/" target="_blank">KDays Forum</a>
-    </li>
-    
-    <li>
-        <a href="http://www.gal123.com/" target="_blank">绅士导航♂</a>
-    </li>
-    
-    <li>
-        <a href="http://www.moe123.com/" target="_blank">萌导航</a>
-    </li>
-    
-</div>
-                
-                
-                <div class="links tab-pane nav bs-sidenav fade" id="sidebar-links">
-    
-    <li>
-        <a href="https://github.com/HaxiSnake/" target="_blank">Github</a>
-    </li>
-    
-    <li>
-        <a href="" target="_blank">Coding</a>
-    </li>
-    
-    <li>
-        <a href="" target="_blank">知乎</a>
-    </li>
-    
-</div>
-                
-            </div>
-        </div>
-    </aside>
-    
-</aside>
-            </div>
-        </div>
+
+    </header>
+    <div>
+      
+        <img src="/2018/07/17/opencv3-ubuntu16-04-install/opencv.jpg" title="This is an example image">
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install cmake</span><br><span class="line">sudo apt-get install python3-dev python3-numpy</span><br><span class="line">sudo apt-get install gcc g++</span><br><span class="line"></span><br><span class="line">sudo apt-get install libgtk2.0-dev</span><br><span class="line">sudo apt-get install libv4l-dev</span><br><span class="line">sudo apt-get install libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev</span><br><span class="line">sudo apt-get install sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev liblapacke-dev</span><br><span class="line">sudo apt-get install libxvidcore-dev libx264-dev </span><br><span class="line">sudo apt-get install libatlas-base-dev gfortran</span><br><span class="line">sudo apt-get install ffmpeg </span><br><span class="line"></span><br><span class="line">sudo apt-get install git</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/opencv/opencv.git</span><br><span class="line"></span><br><span class="line">cmake dir/of/opencv/<span class="built_in">source</span></span><br><span class="line">sudo make -j4 </span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+      
     </div>
-    <footer id="gal-footer">
-    <div class="container">
-        Copyright © 2018 HaxiSnake Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</article>
+
+    </li>
+  
+    <li>
+      <article class='ListView'>
+    <header class="title">
+      
+        <h1>
+          <a href="/2018/07/17/树莓派3B-编译安装opencv3/">树莓派3B+编译安装opencv3</a>
+        </h1>
+      
+      <div class='ListMeta'>
+  <time datetime="2018-07-17T11:17:56.000Z" itemprop="datePublished">
+    2018-07-17
+  </time>
+  
+  | 
+  <ul>
+    
+  <li class="meta-text">
+  { <a href="/tags/环境搭建/">环境搭建</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/opencv3/">opencv3</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/raspberry3B/">raspberry3B+</a> }
+  </li>
+
+
+  </ul>
+  
+  
+  / 
+  <ul>
+    
+  <li class="meta-text">
+  { <a href="/categories/调试记录/">调试记录</a> }
+  </li>
+
+
+  </ul>
+  
+</div>
+
+    </header>
+    <div>
+      
+        <img src="/2018/07/17/树莓派3B-编译安装opencv3/opencv.jpg" title="image">
+<h2 id="一、更新源"><a href="#一、更新源" class="headerlink" title="一、更新源"></a>一、更新源</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv sources.list /etc/apt/sources.list </span><br><span class="line">mv raspi.list /etc/apt/sources.list.d/raspi.list</span><br></pre></td></tr></table></figure>
+<p>更新源的配置，注意文件存放的位置<br>文件sources.list和raspi.list具体内容如下</p>
+<p>sources.list文件: </p>
+<pre><code>deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi
+deb http://mirrors.aliyun.com/raspbian/raspbian/ stretch main contrib non-free rpi
+deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi
+deb http://mirrors.neusoft.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi
+</code></pre><p>raspi.list文件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main ui</span><br><span class="line">deb http://mirrors.aliyun.com/raspbian/raspbian/ stretch main ui</span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main ui</span><br><span class="line">deb http://mirrors.neusoft.edu.cn/raspbian/raspbian/ stretch main ui</span><br></pre></td></tr></table></figure></p>
+<p>在终端执行更新命令:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure></p>
+<h2 id="二、安装依赖包"><a href="#二、安装依赖包" class="headerlink" title="二、安装依赖包"></a>二、安装依赖包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential cmake git pkg-config </span><br><span class="line">sudo apt-get install libjpeg8-dev </span><br><span class="line">sudo apt-get install libtiff5-dev </span><br><span class="line">sudo apt-get install  libjasper-dev </span><br><span class="line">sudo apt-get install  libpng12-dev</span><br><span class="line"></span><br><span class="line">sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev</span><br><span class="line">sudo apt-get install libgtk2.0-dev</span><br><span class="line">sudo apt-get install libatlas-base-dev gfortran</span><br></pre></td></tr></table></figure>
+<p><em>注意：降级安装</em><br><em>有些安装包依赖的版本低需要降级安装，如下，对depends后面的进行降级安装</em><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo aptitude install xxxx</span><br></pre></td></tr></table></figure></p>
+<h2 id="三、下载源码"><a href="#三、下载源码" class="headerlink" title="三、下载源码"></a>三、下载源码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/opencv/opencv.git</span><br></pre></td></tr></table></figure>
+<h2 id="四、编译"><a href="#四、编译" class="headerlink" title="四、编译"></a>四、编译</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cmake dir/of/opencv/<span class="built_in">source</span></span><br><span class="line">sudo make -j4 </span><br><span class="line">sudo make install</span><br><span class="line">sudo ldconfig</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+</article>
+
+    </li>
+  
+</ul>
+
+
+            <footer>
+    <div>© 2020 - HaxiSnake </div>
+    <div>
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a>
+        </span>
+        ,
+        <span>
+            Theme - <a href="https://github.com/nameoverflow/hexo-theme-icalm">Icalm</a>
+        </span>
     </div>
 </footer>
 
-<!-- 回到顶端 -->
-<div id="gal-gotop">
-    <i class="fa fa-angle-up"></i>
+        </div>
+    </div>
 </div>
+<script src="/js/pager/dist/singlepager.js"></script>
+<script>
+var sp = new Pager('data-pager-shell')
+
+</script>
 </body>
-<script src="/js/activate-power-mode.js"></script>
-<script>
-
-    // 配置highslide
-	hs.graphicsDir = '/js/highslide/graphics/'
-    hs.outlineType = "rounded-white";
-    hs.dimmingOpacity = 0.8;
-    hs.outlineWhileAnimating = true;
-    hs.showCredits = false;
-    hs.captionEval = "this.thumb.alt";
-    hs.numberPosition = "caption";
-    hs.align = "center";
-    hs.transitions = ["expand", "crossfade"];
-    hs.lang.number = '共%2张图, 当前是第%1张';
-    hs.addSlideshow({
-      interval: 5000,
-      repeat: true,
-      useControls: true,
-      fixedControls: "fit",
-      overlayOptions: {
-        opacity: 0.75,
-        position: "bottom center",
-        hideOnMouseOut: true
-      }
-    })
-
-    // 初始化aos
-    AOS.init({
-      duration: 1000,
-      delay: 0,
-      easing: 'ease-out-back'
-    });
-
-</script>
-<script>
-	POWERMODE.colorful = 'true';    // make power mode colorful
-	POWERMODE.shake = 'true';       // turn off shake
-	// TODO 这里根据具体情况修改
-	document.body.addEventListener('input', POWERMODE);
-</script>
-<script>
-    window.slideConfig = {
-      prefix: '/imgs/slide/background',
-      ext: 'jpg',
-      maxCount: '10'
-    }
-</script>
-<script src="/js/hs.js"></script>
-<script src="/js/blog.js"></script>
-
-
-
 </html>
