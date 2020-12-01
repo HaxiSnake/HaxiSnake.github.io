@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TIDB源码学习-DDL-CreateColumn时不同状态对Insert语句的影响 | 九五之猪</title>
+  
+  
+  
+  <!--link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css"-->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<div class="Shell">
+    <aside class='SideBar'>
+    <section class='avatar' style="background-image: url(/assets/header.png)">
+        <div class='av-pic' style="background-image: url(/assets/pig.jpg)">
+        </div>
+    </section>
+    <section class='menu'>
+        <div>九五之猪</div>
+        
+        <ul>
+          
+            <a href="/" class="Btn">
+              <li>Home</li>
+            </a>  
+          
+            <a href="/archives/" class="Btn">
+              <li>Archive</li>
+            </a>  
+          
+            <a href="/tags/" class="Btn">
+              <li>Tags</li>
+            </a>  
+          
+            <a href="/categories/" class="Btn">
+              <li>Categories</li>
+            </a>  
+          
+            <a href="/about/" class="Btn">
+              <li>About</li>
+            </a>  
+          
+        </ul>
+    </section>
+    <section class="media">
+        
+            
+                <a href="https://github.com/haxisnake">
+                    <img src="/assets/github.svg" />
+                </a>
+            
+        
+    </section>
+</aside>
+
+    <div class="container">
+        <div data-pager-shell>
+            <div>
+  <article class='ContentView'>
+    <header class='PageTitle'>
+        <h1>TIDB源码学习-DDL-CreateColumn时不同状态对Insert语句的影响</h1>
+    </header>
+
+    <section>
+      <p>Add Column会schema会经历none, delete-only, write-only, write-reorganization, public五个状态</p>
+<p>当运行insert语句时，只有处于public状态的节点才会执行成功，其他状态的节点都会无法找到该列。</p>
+<p>原因如下：</p>
+<p>insert语句经过parse, 会由ExecuetStmt()-&gt;Compile()-&gt;Optimize()-&gt;optimize()-&gt;build()中的planBuilder.buildInsert()生成查询计划。</p>
+<p>对于INSERT … VALUES … 会进入buildValuesListOfInsert()中：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *PlanBuilder)</span> <span class="title">buildInsert</span><span class="params">(ctx context.Context, insert *ast.InsertStmt)</span> <span class="params">(Plan, error)</span></span> &#123;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(insert.Setlist) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		<span class="comment">// Branch for `INSERT ... SET ...`.</span></span><br><span class="line">		err := b.buildSetValuesOfInsert(ctx, insert, insertPlan, mockTablePlan, checkRefColumn)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="built_in">len</span>(insert.Lists) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		<span class="comment">// Branch for `INSERT ... VALUES ...`.</span></span><br><span class="line">		err := b.buildValuesListOfInsert(ctx, insert, insertPlan, mockTablePlan, checkRefColumn)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">// Branch for `INSERT ... SELECT ...`.</span></span><br><span class="line">		err := b.buildSelectPlanOfInsert(ctx, insert, insertPlan)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在buildValuesListOfInsert()中会由PlanBuilder.getAffectCols()确定实际要插入的列。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *PlanBuilder)</span> <span class="title">buildValuesListOfInsert</span><span class="params">(ctx context.Context, insert *ast.InsertStmt, insertPlan *Insert, mockTablePlan *LogicalTableDual, checkRefColumn <span class="keyword">func</span>(n ast.Node)</span> <span class="title">ast</span>.<span class="title">Node</span>) <span class="title">error</span></span> &#123;</span><br><span class="line">	affectedValuesCols, err := b.getAffectCols(insert, insertPlan)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><figcaption><span>planbuilder.go:2415:getAffectCols():</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *PlanBuilder)</span> <span class="title">getAffectCols</span><span class="params">(insertStmt *ast.InsertStmt, insertPlan *Insert)</span> <span class="params">(affectedValuesCols []*table.Column, err error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(insertStmt.Columns) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		<span class="comment">// This branch is for the following scenarios:</span></span><br><span class="line">		<span class="comment">// 1. `INSERT INTO tbl_name (col_name [, col_name] ...) &#123;VALUES | VALUE&#125; (value_list) [, (value_list)] ...`,</span></span><br><span class="line">		<span class="comment">// 2. `INSERT INTO tbl_name (col_name [, col_name] ...) SELECT ...`.</span></span><br><span class="line">		colName := <span class="built_in">make</span>([]<span class="keyword">string</span>, <span class="number">0</span>, <span class="built_in">len</span>(insertStmt.Columns))</span><br><span class="line">		<span class="keyword">for</span> _, col := <span class="keyword">range</span> insertStmt.Columns &#123;</span><br><span class="line">			colName = <span class="built_in">append</span>(colName, col.Name.O)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">var</span> missingColName <span class="keyword">string</span></span><br><span class="line">		affectedValuesCols, missingColName = table.FindCols(insertPlan.Table.VisibleCols(), colName, insertPlan.Table.Meta().PKIsHandle)</span><br><span class="line">		<span class="keyword">if</span> missingColName != <span class="string">""</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>, ErrUnknownColumn.GenWithStackByArgs(missingColName, clauseMsg[fieldList])</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="built_in">len</span>(insertStmt.Setlist) == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="comment">// This branch is for the following scenarios:</span></span><br><span class="line">		<span class="comment">// 1. `INSERT INTO tbl_name &#123;VALUES | VALUE&#125; (value_list) [, (value_list)] ...`,</span></span><br><span class="line">		<span class="comment">// 2. `INSERT INTO tbl_name SELECT ...`.</span></span><br><span class="line">		affectedValuesCols = insertPlan.Table.VisibleCols()</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> affectedValuesCols, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在确立AffectCols时是依据table的VisibleCols来确定的：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// VisibleCols implements table.Table VisibleCols interface.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *TableCommon)</span> <span class="title">VisibleCols</span><span class="params">()</span> []*<span class="title">table</span>.<span class="title">Column</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(t.VisibleColumns) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> t.VisibleColumns</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> t.getCols(visible)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *TableCommon)</span> <span class="title">getCols</span><span class="params">(mode getColsMode)</span> []*<span class="title">table</span>.<span class="title">Column</span></span> &#123;</span><br><span class="line">	columns := <span class="built_in">make</span>([]*table.Column, <span class="number">0</span>, <span class="built_in">len</span>(t.Columns))</span><br><span class="line">	<span class="keyword">for</span> _, col := <span class="keyword">range</span> t.Columns &#123;</span><br><span class="line">		<span class="keyword">if</span> col.State != model.StatePublic &#123;</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (mode == visible &amp;&amp; col.Hidden) || (mode == hidden &amp;&amp; !col.Hidden) &#123;</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">		columns = <span class="built_in">append</span>(columns, col)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> columns</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据代码中的判断条件，如果列的状态不为StatePublic，那么就不会被归结为VisibleCols(), 也就不会被getAffectCols()所感知，Inser这一列的操作自然会报错。</p>
+
+
+      
+
+    </section>
+    
+      <section class='ArticleMeta'>
+          <div>
+            发布于&nbsp;
+            <time datetime="2020-12-01T09:53:53.000Z" itemprop="datePublished">
+              2020-12-01
+            </time>
+          </div>
+          
+            <div>
+              tags: 
+  <li class="meta-text">
+  { <a href="/tags/TIDB/">TIDB</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/Golang/">Golang</a> }
+  </li>
+
+
+            </div>
+          
+      </section>
+    
+    
+</article>
+
+  
+</div>
+
+            <footer>
+    <div>© 2020 - HaxiSnake </div>
+    <div>
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a>
+        </span>
+        ,
+        <span>
+            Theme - <a href="https://github.com/nameoverflow/hexo-theme-icalm">Icalm</a>
+        </span>
+    </div>
+</footer>
+
+        </div>
+    </div>
+</div>
+<script src="/js/pager/dist/singlepager.js"></script>
+<script>
+var sp = new Pager('data-pager-shell')
+
+</script>
+</body>
+</html>

@@ -68,6 +68,68 @@
     <header class="title">
       
         <h1>
+          <a href="/2020/12/01/TIDB源码学习笔记-DDL-CreateColumn时不同状态对Insert语句的影响/">TIDB源码学习-DDL-CreateColumn时不同状态对Insert语句的影响</a>
+        </h1>
+      
+      <div class='ListMeta'>
+  <time datetime="2020-12-01T09:53:53.000Z" itemprop="datePublished">
+    2020-12-01
+  </time>
+  
+  | 
+  <ul>
+    
+  <li class="meta-text">
+  { <a href="/tags/TIDB/">TIDB</a> }
+  </li>
+
+  <li class="meta-text">
+  { <a href="/tags/Golang/">Golang</a> }
+  </li>
+
+
+  </ul>
+  
+  
+  / 
+  <ul>
+    
+  <li class="meta-text">
+  { <a href="/categories/学习笔记/">学习笔记</a> }
+  </li>
+
+
+  </ul>
+  
+</div>
+
+    </header>
+    <div>
+      
+        <p>Add Column会schema会经历none, delete-only, write-only, write-reorganization, public五个状态</p>
+<p>当运行insert语句时，只有处于public状态的节点才会执行成功，其他状态的节点都会无法找到该列。</p>
+<p>原因如下：</p>
+<p>insert语句经过parse, 会由ExecuetStmt()-&gt;Compile()-&gt;Optimize()-&gt;optimize()-&gt;build()中的planBuilder.buildInsert()生成查询计划。</p>
+<p>对于INSERT … VALUES … 会进入buildValuesListOfInsert()中：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *PlanBuilder)</span> <span class="title">buildInsert</span><span class="params">(ctx context.Context, insert *ast.InsertStmt)</span> <span class="params">(Plan, error)</span></span> &#123;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(insert.Setlist) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		<span class="comment">// Branch for `INSERT ... SET ...`.</span></span><br><span class="line">		err := b.buildSetValuesOfInsert(ctx, insert, insertPlan, mockTablePlan, checkRefColumn)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="built_in">len</span>(insert.Lists) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		<span class="comment">// Branch for `INSERT ... VALUES ...`.</span></span><br><span class="line">		err := b.buildValuesListOfInsert(ctx, insert, insertPlan, mockTablePlan, checkRefColumn)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">// Branch for `INSERT ... SELECT ...`.</span></span><br><span class="line">		err := b.buildSelectPlanOfInsert(ctx, insert, insertPlan)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在buildValuesListOfInsert()中会由PlanBuilder.getAffectCols()确定实际要插入的列。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *PlanBuilder)</span> <span class="title">buildValuesListOfInsert</span><span class="params">(ctx context.Context, insert *ast.InsertStmt, insertPlan *Insert, mockTablePlan *LogicalTableDual, checkRefColumn <span class="keyword">func</span>(n ast.Node)</span> <span class="title">ast</span>.<span class="title">Node</span>) <span class="title">error</span></span> &#123;</span><br><span class="line">	affectedValuesCols, err := b.getAffectCols(insert, insertPlan)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><figcaption><span>planbuilder.go:2415:getAffectCols():</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *PlanBuilder)</span> <span class="title">getAffectCols</span><span class="params">(insertStmt *ast.InsertStmt, insertPlan *Insert)</span> <span class="params">(affectedValuesCols []*table.Column, err error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(insertStmt.Columns) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		<span class="comment">// This branch is for the following scenarios:</span></span><br><span class="line">		<span class="comment">// 1. `INSERT INTO tbl_name (col_name [, col_name] ...) &#123;VALUES | VALUE&#125; (value_list) [, (value_list)] ...`,</span></span><br><span class="line">		<span class="comment">// 2. `INSERT INTO tbl_name (col_name [, col_name] ...) SELECT ...`.</span></span><br><span class="line">		colName := <span class="built_in">make</span>([]<span class="keyword">string</span>, <span class="number">0</span>, <span class="built_in">len</span>(insertStmt.Columns))</span><br><span class="line">		<span class="keyword">for</span> _, col := <span class="keyword">range</span> insertStmt.Columns &#123;</span><br><span class="line">			colName = <span class="built_in">append</span>(colName, col.Name.O)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">var</span> missingColName <span class="keyword">string</span></span><br><span class="line">		affectedValuesCols, missingColName = table.FindCols(insertPlan.Table.VisibleCols(), colName, insertPlan.Table.Meta().PKIsHandle)</span><br><span class="line">		<span class="keyword">if</span> missingColName != <span class="string">""</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>, ErrUnknownColumn.GenWithStackByArgs(missingColName, clauseMsg[fieldList])</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="built_in">len</span>(insertStmt.Setlist) == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="comment">// This branch is for the following scenarios:</span></span><br><span class="line">		<span class="comment">// 1. `INSERT INTO tbl_name &#123;VALUES | VALUE&#125; (value_list) [, (value_list)] ...`,</span></span><br><span class="line">		<span class="comment">// 2. `INSERT INTO tbl_name SELECT ...`.</span></span><br><span class="line">		affectedValuesCols = insertPlan.Table.VisibleCols()</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> affectedValuesCols, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在确立AffectCols时是依据table的VisibleCols来确定的：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// VisibleCols implements table.Table VisibleCols interface.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *TableCommon)</span> <span class="title">VisibleCols</span><span class="params">()</span> []*<span class="title">table</span>.<span class="title">Column</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(t.VisibleColumns) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> t.VisibleColumns</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> t.getCols(visible)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *TableCommon)</span> <span class="title">getCols</span><span class="params">(mode getColsMode)</span> []*<span class="title">table</span>.<span class="title">Column</span></span> &#123;</span><br><span class="line">	columns := <span class="built_in">make</span>([]*table.Column, <span class="number">0</span>, <span class="built_in">len</span>(t.Columns))</span><br><span class="line">	<span class="keyword">for</span> _, col := <span class="keyword">range</span> t.Columns &#123;</span><br><span class="line">		<span class="keyword">if</span> col.State != model.StatePublic &#123;</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (mode == visible &amp;&amp; col.Hidden) || (mode == hidden &amp;&amp; !col.Hidden) &#123;</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">		columns = <span class="built_in">append</span>(columns, col)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> columns</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据代码中的判断条件，如果列的状态不为StatePublic，那么就不会被归结为VisibleCols(), 也就不会被getAffectCols()所感知，Inser这一列的操作自然会报错。</p>
+
+      
+    </div>
+</article>
+
+    </li>
+  
+    <li>
+      <article class='ListView'>
+    <header class="title">
+      
+        <h1>
           <a href="/2020/11/26/TIDB源码学习笔记-Key编码后的比较/">TIDB源码学习笔记-Key编码后的比较</a>
         </h1>
       
@@ -977,82 +1039,6 @@ CUDA_ARCH :=    -gencode arch=compute_30,code=sm_30 \
 <p>最终搜索页面如下图所示：</p>
 <img src="/2018/12/31/使用python搭建小型搜索引擎/search.jpg" title="image">
 <h1 id="五、项目代码"><a href="#五、项目代码" class="headerlink" title="五、项目代码"></a>五、项目代码</h1><p><a href="https://github.com/HaxiSnake/EXERCISE/tree/master/homework/MessageRetrieval/SearchEngine" target="_blank" rel="noopener">代码链接</a></p>
-
-      
-    </div>
-</article>
-
-    </li>
-  
-    <li>
-      <article class='ListView'>
-    <header class="title">
-      
-        <h1>
-          <a href="/2018/07/18/树莓派3B-turtlebot3ros开发环境搭建问题记录/">树莓派3B——turtlebot3——ROS开发环境搭建问题记录</a>
-        </h1>
-      
-      <div class='ListMeta'>
-  <time datetime="2018-07-18T05:41:27.000Z" itemprop="datePublished">
-    2018-07-18
-  </time>
-  
-  | 
-  <ul>
-    
-  <li class="meta-text">
-  { <a href="/tags/环境搭建/">环境搭建</a> }
-  </li>
-
-  <li class="meta-text">
-  { <a href="/tags/raspberry3B/">raspberry3B</a> }
-  </li>
-
-  <li class="meta-text">
-  { <a href="/tags/ROS/">ROS</a> }
-  </li>
-
-  <li class="meta-text">
-  { <a href="/tags/turtlebot3/">turtlebot3</a> }
-  </li>
-
-
-  </ul>
-  
-  
-  / 
-  <ul>
-    
-  <li class="meta-text">
-  { <a href="/categories/调试记录/">调试记录</a> }
-  </li>
-
-
-  </ul>
-  
-</div>
-
-    </header>
-    <div>
-      
-        <img src="/2018/07/18/树莓派3B-turtlebot3ros开发环境搭建问题记录/turtlebot3.jpg" title="image">
-<p>由于一个比赛项目需要在ROS上做开发，但是按照网上教程搭建开发环境出现了一些问题，因此在此做简单整理，本笔记的开发环境如下：</p>
-<ul>
-<li>硬件环境：turtlebot3 burger(用的其自带的树莓派为raspberry3B)</li>
-<li>树莓派系统版本：ubuntu-mate-16.04.2-desktop-armhf</li>
-<li>PC系统版本： ubuntu-16.04.3-desktop-amd64</li>
-</ul>
-<p>教程参考： <a href="https://www.ncnynl.com/archives/201702/1392.html" target="_blank" rel="noopener">https://www.ncnynl.com/archives/201702/1392.html</a></p>
-<h1 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h1><h2 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h2><p>问题描述：wget 安装脚本时验证出错导致脚本无法下载</p>
-<p>解决方法：在wget命令后加上–no-check-certificate选项即可</p>
-<h2 id="问题二"><a href="#问题二" class="headerlink" title="问题二"></a>问题二</h2><p>问题描述：git clone 出现CAfile: /etc/ssl/certs/ca-certificates.crt CRLfile: none错误</p>
-<p>解决方式：运行 export GIT_SSL_NO_VERIFY=1</p>
-<h2 id="问题三"><a href="#问题三" class="headerlink" title="问题三"></a>问题三</h2><p>问题描述：安装turtlebot依赖包之后找不到catkin_make命令</p>
-<p>解决方式：<br>重新执行 source /opt/ros/kinetic/setup.sh</p>
-<h2 id="问题四"><a href="#问题四" class="headerlink" title="问题四"></a>问题四</h2><p>问题描述：cakin_make时找不到interactive_maker模块</p>
-<p>解决方式：修改安装脚本，使其安装desktop_full版本</p>
-<h2 id="问题五"><a href="#问题五" class="headerlink" title="问题五"></a>问题五</h2><p>问题描述：checksum error when launching turtlebot3_bringup</p>
-<p>解决方式：更新OpenCR固件至最新版与ROS版本相匹配</p>
 
       
     </div>
